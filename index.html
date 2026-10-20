@@ -1,0 +1,1277 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vueltito · el sistema del negocio, sin vueltas</title>
+<meta name="description" content="Caja, precios y etiquetas, facturas de proveedores por foto, fiado, pedidos y factura electrónica de ARCA para comercios de todos los rubros. Con letra grande y todo con palabras.">
+<link rel="canonical" href="https://vueltito.legios.com.ar/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Vueltito">
+<meta property="og:description" content="El sistema del negocio, sin vueltas: cobrar, poner precios y cargar las facturas de los proveedores con una foto.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vueltito.legios.com.ar/">
+<meta name="theme-color" content="#fffafc">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Geist:wght@400..800&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>
+  // El tema elegido a mano gana sobre el del sistema; sin almacenamiento, manda el sistema.
+  (function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('vueltito-tema');if(t==='claro'||t==='oscuro')d.dataset.tema=t}catch(e){}})();
+</script>
+<style>
+/* ======================================================================
+   Rosa y neutros, nada más. El rosa fuerte (#e0187a) es el único que lleva
+   texto blanco encima (4.6:1) y el más oscuro es para texto rosa sobre el
+   fondo claro (5.4:1). El modo oscuro se escribe dos veces a propósito: una
+   para quien lo pide el sistema y otra para quien lo elige con el botón.
+   ====================================================================== */
+:root{
+  --fondo:#fffafc; --sup:#ffffff; --sup2:#fdf2f7;
+  --borde:rgba(60,10,40,.08); --borde2:rgba(60,10,40,.15);
+  --texto:#1a0f15; --medio:#6e5864; --tenue:rgba(26,15,21,.45);
+  --rosa:#e0187a; --sobre-rosa:#ffffff; --rosa-texto:#c80f63;
+  --rosa-viva:#ff4d9a; --chicle:#ff9cc8; --rosa-suave:#ffe6f1;
+  --vidrio:rgba(255,255,255,.72);
+  --sombra:0 1px 2px rgba(60,10,40,.05), 0 10px 30px -14px rgba(120,20,70,.2);
+  --sombra-alta:0 1px 2px rgba(60,10,40,.05), 0 40px 80px -30px rgba(160,20,90,.34);
+  --oscuro:#160b12; --sobre-oscuro:#fdeef5; --oscuro-medio:rgba(253,238,245,.62);
+  --em:linear-gradient(100deg,#ff4d9a,#e0187a 55%,#b03bff);
+  --em-anim:linear-gradient(100deg,#ff4d9a,#e0187a 25%,#b03bff 50%,#e0187a 75%,#ff4d9a);
+  --papel:#fffdf3; --pauta:#cfdcf0; --margen:#f0a0a0; --birome:#1f3f8f;
+  --verde:#1fa866;
+  --radio:22px; --ancho:1160px;
+  --serif:"Instrument Serif",Georgia,serif;
+  --mono:"Geist Mono",ui-monospace,Menlo,Consolas,monospace;
+  --mano:"Caveat","Comic Sans MS",cursive;
+  color-scheme:light;
+}
+:root[data-tema="oscuro"]{
+  --fondo:#110a0e; --sup:#1a1016; --sup2:#21141c;
+  --borde:rgba(255,220,235,.08); --borde2:rgba(255,220,235,.16);
+  --texto:#fbeef4; --medio:rgba(251,238,244,.66); --tenue:rgba(251,238,244,.42);
+  --rosa:#ff5ea8; --sobre-rosa:#1a0f15; --rosa-texto:#ff7ab8; --rosa-suave:rgba(255,94,168,.13);
+  --vidrio:rgba(26,16,22,.72);
+  --sombra:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7);
+  --sombra-alta:0 1px 2px rgba(0,0,0,.4), 0 40px 80px -30px rgba(255,60,150,.22);
+  --oscuro:#0a0508;
+  --em:linear-gradient(100deg,#ffa3cc,#ff5ea8 55%,#c08bff); --em-anim:linear-gradient(100deg,#ffa3cc,#ff5ea8 25%,#c08bff 50%,#ff5ea8 75%,#ffa3cc);
+  --papel:#f4ecdc; --verde:#4fd69c;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema="claro"]){
+    --fondo:#110a0e; --sup:#1a1016; --sup2:#21141c;
+    --borde:rgba(255,220,235,.08); --borde2:rgba(255,220,235,.16);
+    --texto:#fbeef4; --medio:rgba(251,238,244,.66); --tenue:rgba(251,238,244,.42);
+    --rosa:#ff5ea8; --sobre-rosa:#1a0f15; --rosa-texto:#ff7ab8; --rosa-suave:rgba(255,94,168,.13);
+    --vidrio:rgba(26,16,22,.72);
+    --sombra:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7);
+    --sombra-alta:0 1px 2px rgba(0,0,0,.4), 0 40px 80px -30px rgba(255,60,150,.22);
+    --oscuro:#0a0508;
+    --em:linear-gradient(100deg,#ffa3cc,#ff5ea8 55%,#c08bff); --em-anim:linear-gradient(100deg,#ffa3cc,#ff5ea8 25%,#c08bff 50%,#ff5ea8 75%,#ffa3cc);
+    --papel:#f4ecdc; --verde:#4fd69c;
+    color-scheme:dark;
+  }
+}
+
+/* ---------- base ---------- */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-color:var(--chicle) transparent;accent-color:var(--rosa)}
+body{margin:0;background:var(--fondo);color:var(--texto);
+  font:400 17px/1.6 Geist,system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-x:clip;transition:background .4s,color .4s}
+::selection{background:var(--rosa-viva);color:#fff}
+a{color:inherit}
+svg{display:block}
+p{margin:0;text-wrap:pretty}
+button{font:inherit;color:inherit}
+.env{max-width:var(--ancho);margin:0 auto;padding:0 20px}
+@media (min-width:720px){.env{padding:0 32px}}
+h1,h2,h3{margin:0;font-weight:650;letter-spacing:-.04em;line-height:1;text-wrap:balance}
+h1{font-size:clamp(2.9rem,6.4vw,5.6rem);letter-spacing:-.055em;line-height:.96}
+h2{font-size:clamp(2rem,4.2vw,3.3rem);letter-spacing:-.045em}
+h3{font-size:1.15rem;letter-spacing:-.02em;line-height:1.2;font-weight:600}
+em,.serif{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.015em}
+h1 em,h2 em{background:var(--em);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.06em}
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.etiqueta{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;font-weight:500;color:var(--rosa-texto);letter-spacing:.01em}
+.etiqueta::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--rosa-viva)}
+
+.progreso{position:fixed;z-index:60;top:0;left:0;right:0;height:2px;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#ff9cc8,#ff4d9a,#b03bff)}
+@supports (animation-timeline:scroll()){.progreso{animation:avanza linear both;animation-timeline:scroll(root)}}
+@keyframes avanza{to{transform:scaleX(1)}}
+
+/* ---------- marca: el punto de la i es un caramelo ---------- */
+.palabra{display:inline-flex;align-items:baseline;font-weight:750;letter-spacing:-.055em;line-height:1}
+.palabra .i{position:relative;display:inline-block}
+.palabra .i svg{position:absolute;left:50%;bottom:70%;width:.6em;height:.6em;transform:translateX(-50%) rotate(-8deg);transition:transform .6s cubic-bezier(.2,.8,.2,1.6)}
+.marca:hover .palabra .i svg{transform:translateX(-50%) translateY(-.1em) rotate(190deg)}
+
+/* ---------- botones ---------- */
+.boton{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 24px;border-radius:999px;cursor:pointer;
+  font-weight:550;font-size:1rem;text-decoration:none;letter-spacing:-.01em;border:1px solid transparent;background:none;
+  transition:transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s, background .2s, border-color .2s}
+.boton.rosa{background:var(--rosa);color:var(--sobre-rosa);box-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 8px 24px -10px var(--rosa-viva)}
+.boton.rosa:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 14px 32px -12px var(--rosa-viva)}
+.boton.linea{border-color:var(--borde2);color:var(--texto)}
+.boton.linea:hover{border-color:var(--texto)}
+.boton .ico{width:17px;height:17px;transition:transform .2s}
+.boton:hover .ico{transform:translateX(3px)}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--rosa-viva);outline-offset:3px}
+
+/* ---------- barra ---------- */
+.barra{position:fixed;z-index:50;top:12px;left:12px;right:12px;margin:0 auto;max-width:1060px;
+  display:flex;align-items:center;gap:4px;padding:7px 7px 7px 20px;border-radius:999px;
+  background:var(--vidrio);border:1px solid var(--borde);box-shadow:0 8px 30px -18px rgba(120,20,70,.35);
+  backdrop-filter:blur(18px) saturate(1.6);-webkit-backdrop-filter:blur(18px) saturate(1.6)}
+.marca{display:flex;align-items:center;text-decoration:none;font-size:1.5rem;padding-top:4px}
+.menu{display:none;gap:2px;margin-left:auto;font-size:.92rem}
+.menu a{text-decoration:none;color:var(--medio);padding:8px 13px;border-radius:999px;transition:background .2s,color .2s}
+.menu a:hover{background:var(--rosa-suave);color:var(--texto)}
+@media (min-width:960px){.menu{display:flex}}
+.tema{display:grid;place-items:center;width:40px;height:40px;margin-left:auto;border-radius:50%;border:0;background:transparent;cursor:pointer;color:var(--medio);transition:background .2s,color .2s}
+.tema:hover{background:var(--rosa-suave);color:var(--texto)}
+@media (min-width:960px){.tema{margin-left:4px}}
+.tema .ico{width:18px;height:18px}
+.tema .luna{display:none}
+:root[data-tema="oscuro"] .tema .sol{display:none}:root[data-tema="oscuro"] .tema .luna{display:block}
+@media (prefers-color-scheme:dark){:root:not([data-tema="claro"]) .tema .sol{display:none}:root:not([data-tema="claro"]) .tema .luna{display:block}}
+.barra .boton{padding:10px 18px;font-size:.92rem}
+
+/* ---------- portada: el título a la izquierda, la caja a la derecha ---------- */
+.portada{position:relative;padding:128px 0 72px;isolation:isolate;overflow-x:clip}
+@media (min-width:1000px){.portada{padding:150px 0 96px;min-height:min(100vh,920px);display:flex;align-items:center}}
+.portada::before{content:"";position:absolute;z-index:-1;left:50%;top:-260px;width:1300px;height:900px;margin-left:-650px;filter:blur(40px);
+  background:radial-gradient(40% 40% at 70% 50%,rgba(255,77,154,.22),transparent 70%),radial-gradient(30% 30% at 30% 30%,rgba(176,59,255,.1),transparent 70%)}
+.portada .env{display:grid;gap:40px;align-items:center;width:100%}
+@media (min-width:1000px){.portada .env{grid-template-columns:1.05fr .95fr;grid-template-areas:"texto caja" "puntos caja";gap:0 56px}
+  .texto-portada{grid-area:texto;align-self:end}.portada .escena{grid-area:caja}.portada .principios{grid-area:puntos;align-self:start}}
+.portada h1{margin-top:22px}
+.bajada{margin-top:24px;max-width:30em;font-size:clamp(1.08rem,1.6vw,1.22rem);color:var(--medio)}
+.acciones{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+/* Cuatro promesas para quien atiende: un título corto que se lee de un
+   vistazo y, abajo, qué quiere decir en concreto. */
+.principios{list-style:none;margin:32px 0 0;padding:22px 0 0;border-top:1px solid var(--borde);display:grid;grid-template-columns:1fr 1fr;gap:16px 24px}
+@media (max-width:480px){.principios{grid-template-columns:1fr;gap:16px}}
+.principios li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.principios .ficha-ico{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--rosa-suave);color:var(--rosa-texto);transition:transform .3s cubic-bezier(.2,.8,.2,1.6)}
+.principios li:hover .ficha-ico{transform:rotate(-8deg) scale(1.06)}
+.principios .ico{width:18px;height:18px}
+.principios b{display:block;font-size:.95rem;font-weight:600;letter-spacing:-.015em;line-height:1.3}
+.principios small{display:block;margin-top:1px;font-size:.8rem;color:var(--medio);line-height:1.4}
+
+/* caramelos de fondo, sólo dos */
+.dulce{position:absolute;z-index:-1;filter:drop-shadow(0 16px 16px rgba(160,20,90,.2));animation:flotar 8s ease-in-out infinite;pointer-events:none}
+@keyframes flotar{0%,100%{transform:translateY(0) rotate(var(--g,0deg))}50%{transform:translateY(-12px) rotate(calc(var(--g,0deg) + 6deg))}}
+
+/* la caja que se puede usar */
+.escena{position:relative;perspective:1600px}
+.escena .dulce.d1{right:-26px;top:-38px;width:84px;height:84px;--g:18deg}
+.escena .dulce.d2{left:-34px;bottom:120px;width:56px;height:56px;--g:-24deg;animation-delay:-3s;--c-cuerpo:#ffb3d4;--c-env:#ffe0ee}
+@media (max-width:999px){.escena .dulce.d1{right:-8px;top:-30px;width:60px;height:60px}.escena .dulce.d2{display:none}}
+.ventana{position:relative;z-index:2;background:var(--sup);border:1px solid var(--borde);border-radius:24px;box-shadow:var(--sombra-alta);overflow:hidden;
+  transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.ventana-barra{display:flex;align-items:center;gap:7px;padding:13px 18px;border-bottom:1px solid var(--borde);font-size:.82rem;color:var(--medio)}
+.ventana-barra i{width:10px;height:10px;border-radius:50%;background:var(--borde2)}
+.ventana-barra b{margin-left:8px;color:var(--texto);font-weight:600}
+.ventana-barra span{margin-left:auto;font-family:var(--mono);font-size:.74rem;color:var(--tenue)}
+.items{padding:6px 0}
+.item{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;padding:10px 18px;font-size:.93rem}
+.item+.item{border-top:1px solid var(--borde)}
+.item .cod{font-family:var(--mono);font-weight:600;font-size:.86rem;color:var(--rosa-texto)}
+.item .cod svg{width:18px;height:18px;color:var(--tenue)}
+.item .det{color:var(--tenue);font-family:var(--mono);font-size:.78rem;margin-left:8px}
+.item .imp{font-family:var(--mono);font-weight:500;font-size:.9rem}
+.cobro{padding:16px 18px 18px;border-top:1px solid var(--borde);background:var(--sup2);display:grid;gap:12px}
+.paga-con{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.paga-con span{font-size:.84rem;color:var(--medio);margin-right:4px}
+.billete{padding:7px 12px;border-radius:10px;border:1px solid var(--borde2);background:var(--sup);cursor:pointer;font-family:var(--mono);font-weight:500;font-size:.82rem;transition:background .2s,border-color .2s,color .2s}
+.billete:hover{border-color:var(--rosa-viva)}
+.billete[aria-pressed="true"]{background:var(--texto);color:var(--fondo);border-color:var(--texto)}
+@media (max-width:520px){.paga-con{display:grid;grid-template-columns:repeat(4,1fr)}.paga-con span{grid-column:1/-1}}
+.totales{display:flex;justify-content:space-between;font-size:.92rem;color:var(--medio)}
+.totales b{font-family:var(--mono);font-weight:600;color:var(--texto)}
+.vuelto{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:16px 18px;border-radius:18px;color:#fff;overflow:hidden;background:linear-gradient(135deg,#ff5ea8,#e0187a 60%,#b0157a)}
+.vuelto::after{content:"";position:absolute;right:-40px;top:-50px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.3),transparent 70%);pointer-events:none}
+.vuelto span{display:block;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.vuelto strong{display:block;font-size:clamp(2.4rem,4.6vw,3.2rem);font-weight:650;letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.vuelto.salta strong{animation:salto .45s cubic-bezier(.2,.8,.2,1.5)}
+@keyframes salto{40%{transform:scale(1.06)}}
+.tecla{position:relative;z-index:1;flex:none;padding:12px 18px;border-radius:12px;font-weight:600;font-size:.92rem;background:#fff;color:#c80f63;border:0;cursor:pointer;transition:transform .15s}
+.tecla:hover{transform:translateY(-1px)}
+.tecla:active{transform:scale(.97)}
+.tecla.hecho{background:var(--verde);color:#fff}
+
+/* el ticket sale por debajo */
+.ticket{position:absolute;z-index:1;right:12%;top:calc(100% - 70px);width:230px;padding:28px 18px 20px;background:#fff;color:#2a241d;
+  font-family:var(--mono);font-size:.74rem;line-height:1.55;box-shadow:0 20px 40px -20px rgba(60,10,40,.45);
+  transform:translateY(-100%);transition:transform .9s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ticket::after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:10px;
+  background:linear-gradient(-45deg,transparent 7px,#fff 0) 0 0/14px 10px repeat-x,linear-gradient(45deg,transparent 7px,#fff 0) 0 0/14px 10px repeat-x}
+.escena.impreso .ticket{transform:translateY(0) rotate(2deg)}
+.ticket .t-cab{text-align:center;font-weight:600;letter-spacing:.06em}
+.ticket .t-cab svg{width:24px;height:24px;margin:0 auto 4px}
+.ticket hr{border:0;border-top:1.5px dashed rgba(42,36,29,.3);margin:10px 0}
+.ticket .t-l{display:flex;justify-content:space-between;gap:10px}
+.ticket .t-v{margin-top:8px;padding:8px;border:1.5px solid #2a241d;border-radius:6px;text-align:center;font-size:.7rem;letter-spacing:.12em;font-weight:600}
+.ticket .t-v b{display:block;font-family:Geist,sans-serif;font-size:1.8rem;letter-spacing:-.04em;color:#e0187a;line-height:1.1}
+.vivo{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.dulce-vuela{position:fixed;z-index:90;pointer-events:none;left:0;top:0}
+
+/* ---------- cifras: una línea ---------- */
+.cifras{display:grid;grid-template-columns:repeat(2,1fr);border-block:1px solid var(--borde)}
+@media (min-width:900px){.cifras{grid-template-columns:repeat(4,1fr)}}
+.cifra{padding:28px 20px}
+.cifra+.cifra{border-left:1px solid var(--borde)}
+@media (max-width:899px){.cifra:nth-child(3){border-left:0}.cifra:nth-child(n+3){border-top:1px solid var(--borde)}}
+.cifra b{display:block;font-size:clamp(2rem,3.6vw,2.8rem);font-weight:600;letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.cifra span{display:block;margin-top:8px;color:var(--medio);font-size:.88rem;line-height:1.4}
+
+/* ---------- secciones ---------- */
+section{scroll-margin-top:90px}
+.bloque{padding:112px 0}
+@media (max-width:719px){.bloque{padding:68px 0}}
+.titulo{max-width:44rem;margin-bottom:48px}
+.titulo h2{margin-top:14px}
+.titulo p{margin-top:16px;color:var(--medio);font-size:1.08rem;max-width:34em}
+.titulo.centro{text-align:center;margin-left:auto;margin-right:auto}
+
+/* ---------- un día con Vueltito ---------- */
+.dia{display:grid;gap:20px;align-items:start}
+@media (min-width:960px){.dia{grid-template-columns:.9fr 1.1fr;gap:56px}}
+.reloj{position:sticky;top:80px;z-index:5;border-radius:28px;overflow:hidden;isolation:isolate;color:#fff;box-shadow:var(--sombra-alta);
+  display:flex;align-items:center;gap:16px;padding:14px 18px}
+@media (min-width:960px){.reloj{top:100px;height:min(70vh,580px);flex-direction:column;justify-content:center;gap:10px;padding:32px;text-align:center}}
+.cielo{position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity 1s ease}
+.cielo.activo{opacity:1}
+.cielo.manana{background:radial-gradient(70% 60% at 30% 20%,#ffe1a8,transparent 70%),linear-gradient(160deg,#ffb4cf,#ff6fa8 60%,#ff4d9a)}
+.cielo.mediodia{background:radial-gradient(60% 50% at 70% 15%,#fff3b0,transparent 70%),linear-gradient(170deg,#ff9cc8,#ff4d9a 55%,#e0187a)}
+.cielo.tarde{background:radial-gradient(70% 50% at 50% 100%,#ffb36b,transparent 70%),linear-gradient(170deg,#e0187a,#b0157a 50%,#7a1fa8)}
+.cielo.noche{background:radial-gradient(1.5px 1.5px at 20% 30%,#fff,transparent),radial-gradient(1.5px 1.5px at 70% 20%,#fff,transparent),radial-gradient(1px 1px at 40% 70%,#fff,transparent),radial-gradient(1.5px 1.5px at 85% 60%,#fff,transparent),radial-gradient(1px 1px at 12% 80%,#fff,transparent),radial-gradient(1px 1px at 55% 40%,#fff,transparent),linear-gradient(170deg,#3b0f4f,#1a0a26 60%,#0d0612)}
+.astro{position:relative;width:56px;height:56px;flex:none}
+@media (min-width:960px){.astro{width:230px;height:230px}}
+.astro svg.anillo{width:100%;height:100%;transform:rotate(-90deg)}
+.astro .pista{fill:none;stroke:rgba(255,255,255,.22);stroke-width:7}
+.astro .hecho{fill:none;stroke:#fff;stroke-width:7;stroke-linecap:round;stroke-dasharray:565.5;stroke-dashoffset:565.5;transition:stroke-dashoffset 1s cubic-bezier(.2,.8,.2,1)}
+.astro .sol-luna{position:absolute;inset:0;display:grid;place-items:center}
+.astro .sol-luna svg{width:42%;height:42%;transition:transform .8s cubic-bezier(.2,.8,.2,1.4)}
+.hora{font-family:var(--mono);font-weight:600;font-size:clamp(2rem,4.6vw,4.4rem);letter-spacing:-.06em;line-height:1;font-variant-numeric:tabular-nums}
+.momento-del-dia{font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,1.8vw,1.5rem);opacity:.92}
+@media (min-width:960px){.reloj .textos{text-align:center}}
+.pasos-dia{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+@media (min-width:960px){.pasos-dia{gap:16px;padding:8vh 0 24vh}}
+.paso-dia{padding:20px 22px;border-radius:20px;background:var(--sup);border:1px solid var(--borde);transition:transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s, border-color .5s, opacity .5s}
+@media (min-width:960px){.paso-dia{opacity:.4}.paso-dia.actual{opacity:1;transform:translateX(-6px);box-shadow:var(--sombra-alta);border-color:var(--chicle)}}
+.paso-dia .arriba{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.paso-dia time{font-family:var(--mono);font-weight:600;font-size:.8rem;padding:3px 9px;border-radius:999px;background:var(--rosa-suave);color:var(--rosa-texto)}
+.ficha{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:500;color:var(--medio)}
+.ficha .ico{width:15px;height:15px;color:var(--rosa-texto)}
+.paso-dia h3{margin-top:12px;font-size:1.25rem}
+.paso-dia p{margin-top:6px;color:var(--medio);font-size:.96rem}
+
+/* ---------- qué hace ---------- */
+.bento{display:grid;gap:14px}
+@media (min-width:720px){.bento{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1040px){.bento{grid-template-columns:repeat(3,1fr)}}
+.baldosa{position:relative;display:flex;flex-direction:column;gap:12px;padding:26px;border-radius:var(--radio);background:var(--sup);border:1px solid var(--borde);overflow:hidden;isolation:isolate;transition:border-color .3s, box-shadow .3s}
+.baldosa::after{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),rgba(255,77,154,.1),transparent 60%)}
+.baldosa:hover{border-color:var(--borde2);box-shadow:var(--sombra)}
+.baldosa:hover::after{opacity:1}
+.baldosa h3{display:flex;align-items:center;gap:10px}
+.baldosa h3 .ico{color:var(--rosa-texto)}
+.baldosa > p{color:var(--medio);font-size:.95rem;line-height:1.55}
+.baldosa .visual{margin-top:auto;padding-top:8px}
+@media (min-width:1040px){.b-fotos{grid-column:span 2}}
+
+.lectura{display:grid;gap:18px;align-items:center}
+@media (min-width:560px){.lectura{grid-template-columns:120px 1fr}}
+.papel{position:relative;justify-self:center;width:120px;height:156px;padding:14px 12px;background:#fff;border-radius:6px;transform:rotate(-4deg);overflow:hidden;
+  box-shadow:0 14px 26px -14px rgba(60,10,40,.4);border:1px solid rgba(60,10,40,.06);display:flex;flex-direction:column;gap:6px}
+.papel i{display:block;height:4px;border-radius:2px;background:#eedde6}
+.papel i.c{width:55%;height:7px;background:#e0cad6;margin-bottom:5px}
+.papel i:nth-child(odd){width:86%}.papel i:nth-child(3n){width:70%}
+.papel::after{content:"";position:absolute;left:0;right:0;top:0;height:30px;background:linear-gradient(180deg,transparent,rgba(255,77,154,.3) 80%,#ff4d9a);animation:escaneo 2.8s ease-in-out infinite}
+@keyframes escaneo{0%{transform:translateY(-36px)}55%,100%{transform:translateY(160px)}}
+.renglones{display:grid;gap:6px}
+.renglon{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;border:1px solid var(--borde);background:var(--fondo)}
+.js .renglon{opacity:0;transform:translateX(12px);transition:opacity .5s,transform .5s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i,0) * .3s + .4s)}
+.js .visto .renglon{opacity:1;transform:none}
+.renglon .que{font-size:.86rem;line-height:1.25;font-weight:500}
+.renglon .que small{display:block;color:var(--tenue);font-weight:400;font-size:.76rem}
+.renglon .precio{font-family:var(--mono);font-size:.78rem;white-space:nowrap;color:var(--medio)}
+.renglon .precio b{color:var(--texto);font-weight:600}
+.punto{width:8px;height:8px;border-radius:50%;flex:none}
+.punto.ok{background:var(--verde)}.punto.rev{background:#f5a623}.punto.nuevo{background:var(--rosa-viva)}
+
+.peso{display:flex;align-items:center;gap:10px}
+.campo{font-family:var(--mono);font-size:1.1rem;font-weight:600;padding:9px 12px;border-radius:12px;background:var(--sup2);border:1px solid var(--borde2);color:var(--texto);min-width:0}
+input.campo{width:96px;outline:none}
+input.campo:focus{border-color:var(--rosa-viva);box-shadow:0 0 0 4px var(--rosa-suave)}
+.campo.listo{flex:1;background:var(--rosa);color:var(--sobre-rosa);border-color:transparent;text-align:center}
+.peso .ico{color:var(--tenue)}
+.nota{margin-top:8px;font-size:.8rem;color:var(--tenue)}
+
+.gondola{display:flex;align-items:center;gap:14px;perspective:600px}
+.giro{position:relative;width:160px;height:72px;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.3,1.4,.4,1) .8s;flex:none}
+.visto .giro{transform:rotateX(180deg)}
+.cara{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:11px 16px 11px 24px;border-radius:9px 16px 16px 9px;color:#fff}
+.cara::before{content:"";position:absolute;left:9px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--sup)}
+.cara small{display:block;font-size:.72rem;font-weight:500;opacity:.9}
+.cara strong{font-size:1.65rem;font-weight:650;letter-spacing:-.04em;line-height:1.1}
+.cara.antes{background:#a8979f}
+.cara.ahora{background:linear-gradient(135deg,#ff5ea8,#e0187a);transform:rotateX(180deg);box-shadow:0 12px 24px -12px rgba(224,24,122,.8)}
+.listo-imprimir{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:500;color:var(--verde);opacity:0;transition:opacity .4s 1.6s}
+.visto .listo-imprimir{opacity:1}
+.listo-imprimir .ico{width:15px;height:15px}
+
+.fiado{display:grid;gap:10px}
+.persona{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;font-size:.92rem}
+.persona .ini{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;font-weight:600;font-size:.78rem;background:var(--rosa-suave);color:var(--rosa-texto)}
+.persona b{font-family:var(--mono);font-size:.82rem;font-weight:500}
+.persona b.debe{color:var(--rosa-texto)}
+.persona b.aldia{color:var(--verde)}
+
+.arca{display:flex;align-items:center;gap:16px}
+.qr{width:72px;height:72px;padding:6px;border-radius:10px;background:#fff;border:1px solid rgba(60,10,40,.08);flex:none}
+.qr svg{width:100%;height:100%}
+.arca dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:.84rem}
+.arca dt{color:var(--tenue)}
+.arca dd{margin:0;font-family:var(--mono);font-weight:500}
+
+.mensaje{align-self:flex-start;max-width:100%;padding:12px 14px;border-radius:16px 16px 16px 5px;background:var(--sup2);border:1px solid var(--borde);font-size:.86rem;line-height:1.45}
+.mensaje b{display:block;font-size:.76rem;font-weight:600;color:var(--rosa-texto);margin-bottom:3px}
+.mensaje .hora-msj{display:flex;justify-content:flex-end;align-items:center;gap:4px;font-size:.7rem;color:var(--tenue);margin-top:2px}
+.mensaje .hora-msj .ico{width:13px;height:13px;color:#34b7f1}
+
+.tambien{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tambien span{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid var(--borde);background:var(--sup);font-size:.88rem;color:var(--medio)}
+.tambien .ico{width:16px;height:16px;color:var(--rosa-texto)}
+
+/* ---------- la libreta contra Vueltito ---------- */
+.comparar{position:relative;--x:50%;border-radius:28px;overflow:hidden;box-shadow:var(--sombra);border:1px solid var(--borde);height:400px;user-select:none;-webkit-user-select:none}
+.capa{position:absolute;inset:0;display:grid;grid-template-rows:auto repeat(4,1fr);padding:24px 28px 16px}
+.capa .titulo-capa{display:flex;align-items:center;min-height:42px}
+.capa-vueltito{background:var(--sup)}
+.capa-vueltito .titulo-capa{justify-content:flex-end;font-size:1.5rem;padding-top:6px}
+.capa-vueltito .fila{display:flex;align-items:center;justify-content:flex-end;gap:12px;border-top:1px solid var(--borde);text-align:right}
+.capa-vueltito .fila span{font-weight:550;font-size:.98rem;letter-spacing:-.01em}
+.capa-vueltito .fila small{display:block;color:var(--tenue);font-weight:400;font-size:.8rem}
+.capa-vueltito .fila .ok{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--rosa-suave);color:var(--rosa-texto);flex:none}
+.capa-vueltito .fila .ok .ico{width:14px;height:14px}
+.capa-libreta{background-color:var(--papel);color:var(--birome);font-family:var(--mano);clip-path:inset(0 calc(100% - var(--x)) 0 0);
+  background-image:linear-gradient(90deg,transparent 48px,var(--margen) 48px,var(--margen) 50px,transparent 50px),repeating-linear-gradient(180deg,transparent 0 37px,var(--pauta) 37px 38px);padding-left:68px}
+.capa-libreta .titulo-capa{font-size:1.9rem;font-weight:700}
+.capa-libreta .fila{display:flex;align-items:center;font-size:clamp(1.25rem,2.2vw,1.6rem);line-height:1.1;font-weight:500}
+.capa-libreta .fila:nth-child(odd){rotate:-.5deg}.capa-libreta .fila:nth-child(even){rotate:.4deg}
+.capa-libreta .tachado{text-decoration:line-through;text-decoration-color:#d0342c;text-decoration-thickness:2px}
+.manija{position:absolute;top:0;bottom:0;left:var(--x);width:2px;margin-left:-1px;background:var(--rosa);pointer-events:none;z-index:3}
+.manija::after{content:"";position:absolute;top:50%;left:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:var(--rosa);border:3px solid #fff;box-shadow:var(--sombra)}
+.manija svg{position:absolute;z-index:1;top:50%;left:50%;width:22px;height:22px;margin:-11px 0 0 -11px;color:#fff}
+.comparar input{position:absolute;inset:0;z-index:4;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:pan-y}
+.comparar:has(input:focus-visible) .manija::after{outline:2px solid var(--rosa-viva);outline-offset:3px}
+@media (max-width:719px){.comparar{height:460px}.capa{padding:18px 16px 12px}.capa-libreta{padding-left:50px;background-image:linear-gradient(90deg,transparent 36px,var(--margen) 36px,var(--margen) 38px,transparent 38px),repeating-linear-gradient(180deg,transparent 0 37px,var(--pauta) 37px 38px)}
+  .capa-vueltito .fila span{font-size:.88rem}.capa-vueltito .fila small{font-size:.74rem}.capa-libreta .fila{font-size:1.2rem}}
+
+/* ---------- tranquilidad ---------- */
+.banda{position:relative;background:var(--oscuro);color:var(--sobre-oscuro);overflow:hidden;isolation:isolate;border-radius:36px;margin:0 8px}
+@media (min-width:720px){.banda{margin:0 16px}}
+.banda::before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(50% 60% at 85% 0%,rgba(255,77,154,.24),transparent 70%)}
+.banda .etiqueta{color:#ff9cc8}
+.banda h2 em{background:linear-gradient(100deg,#ffa3cc,#ff5ea8 55%,#c08bff);-webkit-background-clip:text;background-clip:text}
+.banda .titulo p{color:var(--oscuro-medio)}
+.tranquilidad{display:grid;gap:32px 40px}
+@media (min-width:720px){.tranquilidad{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1040px){.tranquilidad{grid-template-columns:repeat(3,1fr)}}
+.tranquilo{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.tranquilo .ico{width:22px;height:22px;color:#ff9cc8;margin-top:2px}
+.tranquilo p{margin-top:6px;color:var(--oscuro-medio);font-size:.94rem}
+
+/* ---------- enseñarle algo ---------- */
+.propio{display:grid;gap:40px;align-items:center}
+@media (min-width:960px){.propio{grid-template-columns:1fr 1fr;gap:72px}}
+.propio .texto p{margin-top:18px;color:var(--medio);font-size:1.06rem}
+.charla{display:grid;gap:12px;padding:24px;border-radius:28px;background:var(--sup2);border:1px solid var(--borde);min-height:320px;align-content:start}
+.globo{max-width:92%;padding:14px 16px;border-radius:20px;font-size:1rem;line-height:1.45}
+.globo.dice{background:var(--sup);border:1px solid var(--borde);border-bottom-left-radius:6px;min-height:96px}
+.escrito::after{content:"";display:inline-block;width:2px;height:1.05em;margin-left:2px;vertical-align:-.15em;background:var(--rosa);animation:parpadeo 1s steps(1) infinite}
+@keyframes parpadeo{50%{opacity:0}}
+.globo.regla{justify-self:end;color:#fff;border-bottom-right-radius:6px;background:linear-gradient(135deg,#ff5ea8,#e0187a);box-shadow:0 14px 30px -16px rgba(224,24,122,.8);
+  transition:opacity .4s, transform .5s cubic-bezier(.2,.8,.2,1.4);transform-origin:bottom right}
+.globo.regla.oculto{opacity:0;transform:scale(.9) translateY(8px)}
+.globo small{display:flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.globo dl{display:grid;grid-template-columns:auto 1fr;gap:3px 16px;margin:0;font-size:.95rem}
+.globo dt{opacity:.85}
+.globo dd{margin:0;font-weight:600}
+
+/* ---------- preguntas ---------- */
+.preguntas{display:grid;gap:0 40px}
+@media (min-width:900px){.preguntas{grid-template-columns:1fr 1fr}}
+.preguntas details{border-bottom:1px solid var(--borde)}
+.preguntas summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;cursor:pointer;list-style:none;font-weight:550;font-size:1.02rem;letter-spacing:-.01em}
+.preguntas summary::-webkit-details-marker{display:none}
+.preguntas summary .mas{position:relative;width:26px;height:26px;border-radius:50%;border:1px solid var(--borde2);flex:none;transition:transform .35s cubic-bezier(.2,.8,.2,1.4),background .3s,border-color .3s}
+.preguntas summary .mas::before,.preguntas summary .mas::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:1.5px;margin:-.75px 0 0 -5px;border-radius:2px;background:var(--texto)}
+.preguntas summary .mas::after{transform:rotate(90deg)}
+.preguntas details[open] .mas{transform:rotate(135deg);background:var(--rosa);border-color:var(--rosa)}
+.preguntas details[open] .mas::before,.preguntas details[open] .mas::after{background:var(--sobre-rosa)}
+.preguntas details p{padding:0 40px 20px 0;color:var(--medio);font-size:.95rem}
+
+/* ---------- cierre con los pasos adentro ---------- */
+.cierre{padding:24px 0 96px}
+.tarjeta-cierre{position:relative;overflow:hidden;isolation:isolate;border-radius:36px;padding:72px 24px 40px;text-align:center;color:#fff;
+  background:radial-gradient(60% 80% at 15% 0%,#ff8cc0,transparent 60%),radial-gradient(60% 80% at 100% 100%,#9b3bff,transparent 60%),linear-gradient(135deg,#ff4d9a,#e0187a 50%,#b0157a)}
+@media (min-width:720px){.tarjeta-cierre{padding:96px 48px 44px}}
+.tarjeta-cierre .serif{font-size:clamp(1.2rem,2.2vw,1.6rem);opacity:.92}
+.tarjeta-cierre h2{max-width:13em;margin:12px auto 0;color:#fff;font-size:clamp(2.3rem,5.4vw,4.2rem)}
+.tarjeta-cierre p.sub{max-width:30em;margin:18px auto 0;font-size:1.06rem;opacity:.88}
+.tarjeta-cierre .acciones{justify-content:center}
+.tarjeta-cierre .boton{background:#fff;color:#c80f63;box-shadow:0 14px 36px -14px rgba(60,0,30,.6);padding:16px 28px;font-size:1.04rem}
+.tarjeta-cierre .boton:hover{transform:translateY(-1px)}
+.pasos{list-style:none;margin:64px auto 0;padding:24px 0 0;border-top:1px solid rgba(255,255,255,.22);display:grid;gap:18px;max-width:900px;text-align:left;counter-reset:paso}
+@media (min-width:720px){.pasos{grid-template-columns:repeat(3,1fr);gap:28px}}
+.pasos li{counter-increment:paso;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;font-size:.92rem;opacity:.95}
+.pasos li::before{content:"0" counter(paso);font-family:var(--serif);font-style:italic;font-size:1.6rem;line-height:1;opacity:.85}
+.pasos b{display:block;font-size:1rem;font-weight:600;margin-bottom:2px}
+.tarjeta-cierre .dulce{z-index:-1;filter:drop-shadow(0 16px 16px rgba(60,0,30,.3))}
+.tarjeta-cierre .dulce.c1{left:7%;top:16%;width:84px;height:84px;--g:-24deg;--c-cuerpo:#fff;--c-env:#ffd1e6}
+.tarjeta-cierre .dulce.c2{right:8%;top:22%;width:60px;height:60px;--g:28deg;--c-cuerpo:#ffd1e6;--c-env:#fff;animation-delay:-3s}
+@media (max-width:719px){.tarjeta-cierre .dulce.c1{left:-12px;top:10px;width:56px;height:56px}.tarjeta-cierre .dulce.c2{right:-8px;top:18px;width:44px;height:44px}}
+
+/* ---------- pie ---------- */
+footer{position:relative;overflow:hidden;padding:40px 0 0}
+footer .env{display:flex;flex-wrap:wrap;gap:12px 32px;align-items:center;justify-content:space-between;color:var(--medio);font-size:.9rem}
+footer a{color:var(--texto)}
+.gigante{display:flex;justify-content:center;margin-top:40px;font-size:clamp(4.5rem,18vw,16rem);margin-bottom:-.12em;user-select:none}
+.gigante .letra{display:inline-block;color:transparent;background:linear-gradient(180deg,var(--chicle),var(--rosa) 80%);-webkit-background-clip:text;background-clip:text;transition:transform .45s cubic-bezier(.2,.8,.2,1.6)}
+.gigante .palabra:hover .letra{transform:translateY(-.04em)}
+.gigante .palabra:hover .letra:nth-child(even){transform:translateY(-.08em)}
+.gigante .i svg{bottom:66%;width:.46em;height:.46em}
+
+/* ---------- detalles ---------- */
+/* el título entra de a una línea y el trazo se dibuja debajo de "vueltas" */
+.titulo-portada .l{display:block}
+.js .titulo-portada .l>span{display:inline-block;animation:sube 1s cubic-bezier(.2,.8,.2,1) both}
+.js .titulo-portada .l:nth-child(2)>span{animation-delay:.09s}
+.js .titulo-portada .l:nth-child(3)>span{animation-delay:.18s}
+@keyframes sube{from{transform:translateY(45%);clip-path:inset(0 0 100% 0);opacity:0}to{transform:none;clip-path:inset(-30% -10% -40% -10%);opacity:1}}
+.subrayado{position:relative;display:inline-block}
+.titulo-portada em{background-image:var(--em-anim);background-size:220% 100%;animation:brillo 7s ease-in-out infinite alternate}
+@keyframes brillo{to{background-position:100% 0}}
+.trazo{position:absolute;left:-1%;width:100%;bottom:-.1em;height:.22em;overflow:visible;fill:none;stroke:url(#grad-trazo);stroke-width:4.5;stroke-linecap:round;
+  stroke-dasharray:1;animation:trazar 1.2s .75s cubic-bezier(.6,0,.2,1) both}
+@keyframes trazar{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.portada .etiqueta::before{animation:latido 2.4s ease-out infinite}
+@keyframes latido{0%{box-shadow:0 0 0 0 rgba(255,77,154,.55)}100%{box-shadow:0 0 0 8px rgba(255,77,154,0)}}
+
+/* brillo que cruza los botones rosas */
+.boton.rosa{overflow:hidden}
+.boton.rosa::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-130%);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.boton.rosa:hover::after{transform:translateX(130%)}
+.boton.linea .ico{transition:transform .4s cubic-bezier(.2,.8,.2,1.6)}
+.boton.linea:hover .ico{transform:rotate(45deg)}
+
+/* la píldora del menú sigue a la sección que se está leyendo */
+.menu{position:relative}
+.menu a{position:relative;z-index:1}
+.menu a.activo{color:var(--texto)}
+.menu .indicador{position:absolute;left:0;top:0;bottom:0;z-index:0;border-radius:999px;background:var(--rosa-suave);opacity:0;pointer-events:none;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1),width .5s cubic-bezier(.2,.8,.2,1),opacity .3s}
+
+/* rótulos numerados */
+.etiqueta.n::before{display:none}
+.etiqueta .num{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.76rem;color:var(--tenue)}
+.etiqueta .num::after{content:"";width:22px;height:1px;background:currentColor;opacity:.7}
+.banda .etiqueta .num{color:rgba(253,238,245,.42)}
+
+/* la caja */
+.ventana-barra .probala{display:inline-flex;align-items:center;gap:6px;margin-left:auto;padding:3px 10px 3px 8px;border-radius:999px;
+  background:var(--rosa-suave);color:var(--rosa-texto);font-family:Geist,sans-serif;font-size:.74rem;font-weight:600}
+.ventana-barra .probala i{width:6px;height:6px;border-radius:50%;background:var(--rosa-viva);animation:latido 2.4s ease-out infinite}
+.billete:active{transform:scale(.95)}
+.ticket .t-fecha{text-align:center;opacity:.6;font-size:.68rem;margin-top:2px}
+.ticket .t-codigo{height:26px;margin-top:12px;opacity:.85;background:repeating-linear-gradient(90deg,#2a241d 0 1px,transparent 1px 3px,#2a241d 3px 5px,transparent 5px 6px,#2a241d 6px 7px,transparent 7px 10px)}
+.ticket .t-g{margin-top:6px;text-align:center;opacity:.6;font-size:.68rem}
+
+/* el reloj: marcas de las horas y la punta que brilla */
+.astro .marcas line{stroke:rgba(255,255,255,.32);stroke-width:1.4;stroke-linecap:round}
+.astro .marcas line.mayor{stroke:rgba(255,255,255,.7);stroke-width:2}
+.astro .punta{transform-origin:100px 100px;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.astro .punta circle{fill:#fff;filter:drop-shadow(0 0 5px rgba(255,255,255,.95))}
+@media (max-width:959px){.astro .marcas{display:none}}
+
+/* baldosas y cifras */
+.baldosa .visual{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.baldosa:hover .visual{transform:translateY(-3px)}
+.cifra:hover b{background:var(--em);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* la manija late hasta que alguien la toca */
+.manija::before{content:"";position:absolute;top:50%;left:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;border:2px solid var(--rosa);animation:onda 1.9s ease-out infinite}
+.comparar.tocado .manija::before{display:none}
+@keyframes onda{from{transform:scale(1);opacity:.7}to{transform:scale(1.9);opacity:0}}
+
+/* una luz que se mueve despacio en la banda oscura y otra que gira en el cierre */
+.banda::after{content:"";position:absolute;z-index:-1;width:640px;height:640px;left:-220px;bottom:-320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(176,59,255,.2),transparent 65%);animation:deriva 18s ease-in-out infinite alternate}
+@keyframes deriva{to{transform:translate(320px,-140px)}}
+.tarjeta-cierre::before{content:"";position:absolute;z-index:-1;left:50%;top:50%;width:200%;aspect-ratio:1;margin-left:-100%;translate:0 -50%;
+  background:conic-gradient(from 0deg,transparent 0 68%,rgba(255,255,255,.16) 80%,transparent 92%);animation:girar 16s linear infinite}
+@keyframes girar{to{rotate:360deg}}
+
+/* preguntas que se abren suave, donde el navegador sabe */
+@supports (interpolate-size:allow-keywords) and selector(::details-content){
+  .preguntas{interpolate-size:allow-keywords}
+  .preguntas details::details-content{height:0;overflow:clip;transition:height .4s cubic-bezier(.2,.8,.2,1),content-visibility .4s allow-discrete}
+  .preguntas details[open]::details-content{height:auto}
+}
+.subir{text-decoration:none;border-bottom:1px solid var(--borde2)}
+.subir:hover{border-color:var(--rosa)}
+
+/* ======================================================================
+   Celular. El pulgar manda: botones de 44 px o más, el llamado a la acción
+   abajo, las secciones largas se deslizan de costado en vez de estirar la
+   página, y nada depende del hover.
+   ====================================================================== */
+.env{--g:20px}
+@media (min-width:720px){.env{--g:32px}}
+a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.boton:active{transform:scale(.97)}
+
+.menu-boton{display:none;position:relative;width:44px;height:44px;border-radius:50%;border:0;background:var(--rosa-suave);cursor:pointer;flex:none}
+.menu-boton span{position:absolute;left:14px;right:14px;height:2px;border-radius:2px;background:var(--texto);transition:transform .35s cubic-bezier(.2,.8,.2,1),top .35s}
+.menu-boton span:first-child{top:17px}.menu-boton span:last-child{top:25px}
+.menu-abierto .menu-boton span:first-child{top:21px;transform:rotate(45deg)}
+.menu-abierto .menu-boton span:last-child{top:21px;transform:rotate(-45deg)}
+.velo{position:fixed;inset:0;z-index:45;background:rgba(26,15,21,.28);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.hoja{position:fixed;z-index:48;top:calc(76px + env(safe-area-inset-top));left:12px;right:12px;display:grid;padding:8px;border-radius:26px;
+  background:var(--sup);border:1px solid var(--borde);box-shadow:var(--sombra-alta);
+  opacity:0;visibility:hidden;transform:translateY(-10px) scale(.98);transform-origin:top center;transition:opacity .3s,visibility .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
+.hoja a:not(.boton){display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;min-height:56px;padding:0 14px;border-radius:16px;text-decoration:none;font-size:1.08rem;font-weight:550;letter-spacing:-.015em}
+.hoja a:not(.boton):active{background:var(--rosa-suave)}
+.hoja a:not(.boton)+a:not(.boton){border-top:1px solid var(--borde)}
+.hoja .num{font-family:var(--mono);font-size:.76rem;color:var(--tenue)}
+.hoja .ico{width:18px;height:18px;color:var(--rosa-texto)}
+.hoja .boton{margin-top:8px;padding:16px}
+.menu-abierto .velo,.menu-abierto .hoja{opacity:1;visibility:visible}
+.menu-abierto .hoja{transform:none}
+.barra-abajo{display:none}
+.desliza{display:none}
+
+@media (max-width:959px){
+  .menu-boton{display:block}
+  .tema{margin-left:auto;width:44px;height:44px}
+  .barra .arriba-cta{display:none}
+  .barra{padding:6px 6px 6px 18px;top:calc(10px + env(safe-area-inset-top))}
+
+  /* el llamado a la acción, al alcance del pulgar */
+  .barra-abajo{position:fixed;z-index:40;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:7px 7px 7px 18px;border-radius:999px;background:var(--vidrio);border:1px solid var(--borde);box-shadow:0 14px 40px -16px rgba(120,20,70,.45);
+    backdrop-filter:blur(18px) saturate(1.6);-webkit-backdrop-filter:blur(18px) saturate(1.6);
+    transform:translateY(calc(100% + 30px));transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+  .barra-abajo span{font-size:.9rem;font-weight:550;letter-spacing:-.01em}
+  .barra-abajo .boton{padding:12px 18px;font-size:.92rem;flex:none}
+  .barra-abajo.visible{transform:none}
+  .menu-abierto .barra-abajo{transform:translateY(calc(100% + 30px))}
+  footer{padding-bottom:84px}
+
+  .titulo{margin-bottom:28px}
+  .hoja a:not(.boton){min-height:52px}
+  .desliza{display:inline-block;margin-top:12px;font-family:var(--mano);font-size:1.3rem;color:var(--rosa-texto);rotate:-2deg}
+
+  /* un día: el reloj arriba, los momentos se deslizan de costado */
+  .reloj{position:relative;top:0;padding:18px 20px;gap:18px}
+  .astro{width:76px;height:76px}
+  .hora{font-size:2.6rem}
+  .pasos-dia{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:4px var(--g) 6px;margin:0 calc(-1 * var(--g));scrollbar-width:none;position:relative;overscroll-behavior-x:contain}
+  .pasos-dia::-webkit-scrollbar{display:none}
+  .paso-dia{flex:0 0 min(84%,420px);scroll-snap-align:center;display:flex;flex-direction:column}
+  .paso-dia.actual{border-color:var(--chicle);box-shadow:var(--sombra)}
+}
+@media (max-width:719px){
+  .solo-chico{display:inline-block}
+  /* qué hace: una baldosa por vez */
+  .bento{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:4px var(--g) 8px;margin:0 calc(-1 * var(--g));scrollbar-width:none;position:relative;overscroll-behavior-x:contain}
+  .bento::-webkit-scrollbar{display:none}
+  .baldosa{flex:0 0 86%;scroll-snap-align:center;padding:22px}
+  .tambien{flex-wrap:nowrap;overflow-x:auto;margin:14px calc(-1 * var(--g)) 0;padding:0 var(--g);scrollbar-width:none}
+  .tambien::-webkit-scrollbar{display:none}
+  .tambien span{flex:none}
+}
+@media (min-width:720px){.solo-chico{display:none!important}}
+
+/* puntitos de los carruseles */
+.puntos{display:none;justify-content:center;gap:2px;margin-top:14px}
+.puntos button{display:grid;place-items:center;min-width:22px;height:28px;padding:0;border:0;background:none;cursor:pointer}
+.puntos button::before{content:"";width:7px;height:7px;border-radius:99px;background:var(--borde2);transition:width .35s cubic-bezier(.2,.8,.2,1),background .3s}
+.puntos button.activo::before{width:22px;background:var(--rosa)}
+@media (max-width:959px){.dia .puntos{display:flex}}
+@media (max-width:719px){.puntos.de-bento{display:flex}}
+
+@media (max-width:999px){
+  .portada{padding:112px 0 56px}
+  .portada .escena{transition:margin-bottom .9s cubic-bezier(.2,.8,.2,1)}
+  .portada .escena.impreso{margin-bottom:190px}
+  .principios{margin-top:0}
+}
+@media (max-width:520px){
+  .portada .acciones{display:grid;grid-template-columns:1fr;gap:10px}
+  .portada .acciones .boton{width:100%;padding:16px}
+  .principios{grid-template-columns:1fr 1fr;gap:14px 12px}
+  .principios small{display:none}
+  .principios li{align-items:center;gap:10px}
+  .principios b{font-size:.88rem}
+  .billete{padding:11px 4px;font-size:.84rem}
+  .tecla{padding:14px 18px}
+  .cifra{padding:22px 16px}
+  .preguntas summary{padding:18px 0;min-height:56px}
+}
+
+/* sin mouse no hay hover: que nada quede "pegado" después de tocar */
+@media (hover:none){
+  .baldosa:hover .visual,.boton.rosa:hover,.boton.linea:hover{transform:none}
+  .boton.rosa:hover::after{transform:translateX(-130%)}
+  .baldosa:hover{box-shadow:none;border-color:var(--borde)}
+}
+
+/* ---------- aparición ---------- */
+.js [data-r]{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+.js [data-r].visto{opacity:1;transform:none}
+.js .bento [data-r]:nth-child(3n+2){transition-delay:.07s}
+.js .bento [data-r]:nth-child(3n){transition-delay:.14s}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .js [data-r],.js .renglon{opacity:1;transform:none}
+  .progreso{display:none}
+}
+</style>
+</head>
+<body>
+<div class="progreso" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="cuerpo-caramelo"><ellipse cx="32" cy="32" rx="15" ry="12.5"/></clipPath>
+    <linearGradient id="grad-trazo" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#ff9cc8"/><stop offset=".5" stop-color="#ff4d9a"/><stop offset="1" stop-color="#b03bff"/></linearGradient>
+    <radialGradient id="volumen" cx="38%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#fff" stop-opacity=".55"/>
+      <stop offset=".45" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#3a0020" stop-opacity=".28"/>
+    </radialGradient>
+  </defs>
+  <!-- La marca: un caramelo envuelto, el vuelto que se daba cuando no había monedas. -->
+  <symbol id="caramelo" viewBox="0 0 64 64">
+    <g transform="rotate(-24 32 32)">
+      <path d="M19.5 32 L5.5 20.5 Q2.6 26.2 5.2 32 Q2.6 37.8 5.5 43.5 Z" style="fill:var(--c-env,#ff9cc8)"/>
+      <path d="M44.5 32 L58.5 20.5 Q61.4 26.2 58.8 32 Q61.4 37.8 58.5 43.5 Z" style="fill:var(--c-env,#ff9cc8)"/>
+      <path d="M8 24.5 L17 30.5 M8 39.5 L17 33.5 M56 24.5 L47 30.5 M56 39.5 L47 33.5" stroke="#fff" stroke-opacity=".55" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+      <ellipse cx="32" cy="32" rx="15" ry="12.5" style="fill:var(--c-cuerpo,#ff4d9a)"/>
+      <g clip-path="url(#cuerpo-caramelo)" stroke="#fff" stroke-opacity=".42" stroke-width="3.4" fill="none">
+        <path d="M14 16 L28 48"/><path d="M23 16 L37 48"/><path d="M32 16 L46 48"/><path d="M41 16 L55 48"/>
+      </g>
+      <ellipse cx="32" cy="32" rx="15" ry="12.5" fill="url(#volumen)"/>
+      <ellipse cx="26" cy="25.5" rx="4.8" ry="2.2" fill="#fff" opacity=".7" transform="rotate(-18 26 25.5)"/>
+    </g>
+  </symbol>
+  <symbol id="i-caja" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></symbol>
+  <symbol id="i-foto" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+  <symbol id="i-etiqueta" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1.2"/></symbol>
+  <symbol id="i-barras" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M8 7v10"/><path d="M12 7v10"/><path d="M16 7v10"/></symbol>
+  <symbol id="i-clientes" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-pedidos" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+  <symbol id="i-factura" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></symbol>
+  <symbol id="i-numeros" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+  <symbol id="i-celu" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+  <symbol id="i-balanza" viewBox="0 0 24 24"><path d="M6.5 7h11"/><path d="M12 3v4"/><path d="M5 21h14"/><path d="M12 7v14"/><path d="m3 15 3.5-8 3.5 8a3.5 3.5 0 0 1-7 0Z"/><path d="m14 15 3.5-8 3.5 8a3.5 3.5 0 0 1-7 0Z"/></symbol>
+  <symbol id="i-sin-red" viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/><path d="M5 12.86a10 10 0 0 1 5.17-2.69"/><path d="M19 12.86a10 10 0 0 0-2-1.52"/><path d="M2 8.82a15 15 0 0 1 4.18-2.64"/><path d="M22 8.82a15 15 0 0 0-11.29-3.76"/><path d="m2 2 20 20"/></symbol>
+  <symbol id="i-copia" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol>
+  <symbol id="i-actualiza" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+  <symbol id="i-candado" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-pc" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></symbol>
+  <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v12h14V9"/><path d="M10 21v-6h4v6"/></symbol>
+  <symbol id="i-deshacer" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5 5.5 5.5 0 0 1-5.5 5.5H11"/></symbol>
+  <symbol id="i-tilde" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-doble" viewBox="0 0 24 24"><path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/></symbol>
+  <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-flechas" viewBox="0 0 24 24"><path d="m9 6-6 6 6 6"/><path d="m15 6 6 6-6 6"/></symbol>
+  <symbol id="i-chispa" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/></symbol>
+  <symbol id="i-letra" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-charla" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-escuela" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></symbol>
+  <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-luna" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  <symbol id="i-abrir" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></symbol>
+  <symbol id="i-cerrar" viewBox="0 0 24 24"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></symbol>
+</svg>
+
+<header class="barra">
+  <a class="marca" href="#" aria-label="Vueltito, inicio"><span class="palabra" aria-hidden="true">vuelt<span class="i">ı<svg viewBox="0 0 64 64"><use href="#caramelo"/></svg></span>to</span></a>
+  <nav class="menu" aria-label="Secciones">
+    <a href="#un-dia">Un día</a>
+    <a href="#que-hace">Qué hace</a>
+    <a href="#tranquilidad">Tranquilidad</a>
+    <a href="#preguntas">Preguntas</a>
+    <span class="indicador" aria-hidden="true"></span>
+  </nav>
+  <button class="tema" type="button" aria-label="Cambiar entre modo claro y oscuro"><svg class="ico sol"><use href="#i-sol"/></svg><svg class="ico luna"><use href="#i-luna"/></svg></button>
+  <a class="boton rosa arriba-cta" href="#contacto">Quiero verlo</a>
+  <button class="menu-boton" type="button" aria-expanded="false" aria-controls="hoja" aria-label="Abrir el menú"><span></span><span></span></button>
+</header>
+<div class="velo" aria-hidden="true"></div>
+<nav class="hoja" id="hoja" aria-label="Menú">
+  <a href="#un-dia"><span class="num">01</span>Un día con Vueltito<svg class="ico"><use href="#i-flecha"/></svg></a>
+  <a href="#que-hace"><span class="num">02</span>Qué hace<svg class="ico"><use href="#i-flecha"/></svg></a>
+  <a href="#libreta"><span class="num">03</span>Antes y ahora<svg class="ico"><use href="#i-flecha"/></svg></a>
+  <a href="#tranquilidad"><span class="num">04</span>Tranquilidad<svg class="ico"><use href="#i-flecha"/></svg></a>
+  <a href="#tu-negocio"><span class="num">05</span>Tu negocio<svg class="ico"><use href="#i-flecha"/></svg></a>
+  <a href="#preguntas"><span class="num">06</span>Preguntas<svg class="ico"><use href="#i-flecha"/></svg></a>
+  <a class="boton rosa" href="#contacto">Quiero verlo andando</a>
+</nav>
+<div class="barra-abajo" id="barra-abajo">
+  <span>¿Lo querés en tu negocio?</span>
+  <a class="boton rosa" href="#contacto">Quiero verlo</a>
+</div>
+
+<main>
+
+<section class="portada">
+  <div class="env">
+    <div class="texto-portada">
+      <span class="etiqueta">Para comercios de todos los rubros</span>
+      <h1 class="titulo-portada"><span class="l"><span>El sistema</span></span> <span class="l"><span>del negocio,</span></span> <span class="l"><span>sin <span class="subrayado"><em>vueltas.</em><svg class="trazo" viewBox="0 0 240 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 15 C 50 5, 92 21, 132 12 S 206 6, 236 13"/></svg></span></span></span></h1>
+      <p class="bajada">Cobrar, poner precios, cargar las facturas de los proveedores con una foto y saber cómo va el mes.</p>
+      <div class="acciones">
+        <a class="boton rosa" href="#contacto">Quiero verlo andando <svg class="ico"><use href="#i-flecha"/></svg></a>
+        <a class="boton linea" href="#un-dia"><svg class="ico"><use href="#i-cerrar"/></svg>Ver un día</a>
+      </div>
+    </div>
+
+    <div class="escena" id="caja-demo">
+      <svg class="dulce d1" viewBox="0 0 64 64" aria-hidden="true"><use href="#caramelo"/></svg>
+      <svg class="dulce d2" viewBox="0 0 64 64" aria-hidden="true"><use href="#caramelo"/></svg>
+      <div class="ventana">
+        <div class="ventana-barra"><i></i><i></i><i></i><b>Caja</b><span class="probala"><i></i>Probala</span></div>
+        <div class="items">
+          <div class="item"><span class="cod">4</span><span>Queso cremoso<span class="det">0,350 kg</span></span><span class="imp">$ 3.150</span></div>
+          <div class="item"><span class="cod"><svg class="ico"><use href="#i-barras"/></svg></span><span>Yerba 1 kg</span><span class="imp">$ 4.800</span></div>
+          <div class="item"><span class="cod">12</span><span>Pan francés<span class="det">0,500 kg</span></span><span class="imp">$ 1.400</span></div>
+          <div class="item"><span class="cod"><svg class="ico"><use href="#i-barras"/></svg></span><span>Leche entera 1 L<span class="det">× 2</span></span><span class="imp">$ 2.600</span></div>
+        </div>
+        <div class="cobro">
+          <div class="totales"><span>Total</span><b>$ 11.950</b></div>
+          <div class="paga-con" role="group" aria-label="¿Con cuánto paga el cliente?">
+            <span>Paga con</span>
+            <button class="billete" type="button" data-paga="12000" aria-pressed="false">12.000</button>
+            <button class="billete" type="button" data-paga="15000" aria-pressed="true">15.000</button>
+            <button class="billete" type="button" data-paga="20000" aria-pressed="false">20.000</button>
+            <button class="billete" type="button" data-paga="11950" aria-pressed="false">Justo</button>
+          </div>
+          <div class="vuelto" id="vuelto-caja">
+            <div><span id="vuelto-rotulo">Vuelto</span><strong id="vuelto">$ 3.050</strong></div>
+            <button class="tecla" type="button" id="cobrar">Cobrar</button>
+          </div>
+        </div>
+      </div>
+      <div class="ticket" aria-hidden="true">
+        <div class="t-cab"><svg viewBox="0 0 64 64"><use href="#caramelo"/></svg>TU COMERCIO</div>
+        <div class="t-fecha" id="t-fecha"></div>
+        <hr>
+        <div class="t-l"><span>TOTAL</span><span>$ 11.950</span></div>
+        <div class="t-l"><span>PAGA CON</span><span id="t-paga">$ 15.000</span></div>
+        <div class="t-v">VUELTO<b id="t-vuelto">$ 3.050</b></div>
+        <div class="t-codigo"></div>
+        <div class="t-g">¡Gracias! Vuelva pronto</div>
+      </div>
+      <p class="vivo" id="vivo" aria-live="polite"></p>
+    </div>
+    <ul class="principios" aria-label="Lo que te ahorra tiempo">
+      <li><span class="ficha-ico"><svg class="ico"><use href="#i-foto"/></svg></span><span><b>Facturas con una foto</b><small>Lee renglones y calcula precios</small></span></li>
+      <li><span class="ficha-ico"><svg class="ico"><use href="#i-etiqueta"/></svg></span><span><b>Etiquetas solas</b><small>Cada cambio, con su etiqueta</small></span></li>
+      <li><span class="ficha-ico"><svg class="ico"><use href="#i-pedidos"/></svg></span><span><b>Sabe qué pedir</b><small>El pedido, listo para WhatsApp</small></span></li>
+      <li><span class="ficha-ico"><svg class="ico"><use href="#i-clientes"/></svg></span><span><b>El fiado, en orden</b><small>Quién debe y cuánto, sin libreta</small></span></li>
+      <li><span class="ficha-ico"><svg class="ico"><use href="#i-cerrar"/></svg></span><span><b>La caja se cierra sola</b><small>A la medianoche, guardada y lista</small></span></li>
+      <li><span class="ficha-ico"><svg class="ico"><use href="#i-barras"/></svg></span><span><b>Ya conoce tus productos</b><small>80.000 códigos de barras</small></span></li>
+    </ul>
+  </div>
+</section>
+
+<section aria-label="Vueltito en números">
+  <div class="env">
+    <div class="cifras">
+      <div class="cifra"><b data-cuenta="80000">80.000</b><span>productos argentinos que conoce por el código de barras</span></div>
+      <div class="cifra"><b data-cuenta="60">60</b><span>días de copias de seguridad, una por día</span></div>
+      <div class="cifra"><b>00:00</b><span>el día se cierra solo, listo para imprimir</span></div>
+      <div class="cifra"><b>0</b><span>puertos abiertos para ayudarte a distancia</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="un-dia">
+  <div class="env">
+    <div class="titulo">
+      <span class="etiqueta n"><span class="num">01</span>Un día con Vueltito</span>
+      <h2>De que se abre la persiana <em>hasta la medianoche.</em></h2>
+      <span class="desliza" aria-hidden="true">deslizá para ver el día →</span>
+    </div>
+    <div class="dia">
+      <div class="reloj" aria-hidden="true">
+        <div class="cielo manana activo"></div><div class="cielo mediodia"></div><div class="cielo tarde"></div><div class="cielo noche"></div>
+        <div class="astro">
+          <svg class="anillo" viewBox="0 0 200 200"><g class="marcas" id="marcas"></g><circle class="pista" cx="100" cy="100" r="90"/><circle class="hecho" id="anillo" cx="100" cy="100" r="90"/><g class="punta" id="punta"><circle cx="190" cy="100" r="6"/></g></svg>
+          <div class="sol-luna"><svg class="ico" id="astro" style="stroke-width:1.5"><use href="#i-sol"/></svg></div>
+        </div>
+        <div class="textos">
+          <div class="hora" id="hora">08:00</div>
+          <div class="momento-del-dia" id="momento">de la mañana</div>
+        </div>
+      </div>
+      <ol class="pasos-dia">
+        <li class="paso-dia actual" data-hora="08:00" data-cielo="manana" data-h="8"><div class="arriba"><time>08:00</time><span class="ficha"><svg class="ico"><use href="#i-abrir"/></svg>Caja abierta</span></div><h3>Se abre la caja</h3><p>Se cuenta la plata al abrir y el día arranca en cero.</p></li>
+        <li class="paso-dia" data-hora="10:30" data-cielo="manana" data-h="10.5"><div class="arriba"><time>10:30</time><span class="ficha"><svg class="ico"><use href="#i-foto"/></svg>14 renglones leídos</span></div><h3>Llega el proveedor</h3><p>Una foto a la factura. Vueltito lee los renglones, calcula costos y precios y suma lo que llegó al stock.</p></li>
+        <li class="paso-dia" data-hora="10:40" data-cielo="manana" data-h="10.67"><div class="arriba"><time>10:40</time><span class="ficha"><svg class="ico"><use href="#i-etiqueta"/></svg>6 etiquetas listas</span></div><h3>Etiquetas nuevas</h3><p>Todo lo que cambió de precio ya tiene su etiqueta de góndola para imprimir.</p></li>
+        <li class="paso-dia" data-hora="13:00" data-cielo="mediodia" data-h="13"><div class="arriba"><time>13:00</time><span class="ficha"><svg class="ico"><use href="#i-caja"/></svg>Vuelto $ 3.050</span></div><h3>Hora pico</h3><p>Escanear, pesar, cobrar. El vuelto, bien grande. Si se corta internet, se sigue cobrando igual.</p></li>
+        <li class="paso-dia" data-hora="17:30" data-cielo="tarde" data-h="17.5"><div class="arriba"><time>17:30</time><span class="ficha"><svg class="ico"><use href="#i-clientes"/></svg>Marta · debe $ 12.400</span></div><h3>Fiado</h3><p>Marta se lleva lo de siempre y queda anotado a su nombre, sin libreta.</p></li>
+        <li class="paso-dia" data-hora="19:00" data-cielo="tarde" data-h="19"><div class="arriba"><time>19:00</time><span class="ficha"><svg class="ico"><use href="#i-pedidos"/></svg>Pedido enviado</span></div><h3>El pedido</h3><p>Vueltito sugiere qué pedir según lo que se vendió, en bultos, y sale por WhatsApp.</p></li>
+        <li class="paso-dia" data-hora="21:50" data-cielo="noche" data-h="21.83"><div class="arriba"><time>21:50</time><span class="ficha"><svg class="ico"><use href="#i-copia"/></svg>Copia revisada</span></div><h3>Copia de seguridad</h3><p>Se hace sola, se revisa, y una copia queda guardada fuera del negocio.</p></li>
+        <li class="paso-dia" data-hora="00:00" data-cielo="noche" data-h="24"><div class="arriba"><time>00:00</time><span class="ficha"><svg class="ico"><use href="#i-cerrar"/></svg>Día cerrado</span></div><h3>Cierre del día</h3><p>A la medianoche el día se cierra solo, guardado y listo para imprimir. Mañana, de nuevo.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="que-hace" style="padding-top:24px">
+  <div class="env">
+    <div class="titulo">
+      <span class="etiqueta n"><span class="num">02</span>Qué hace</span>
+      <h2>Todo el negocio, <em>en un solo lugar.</em></h2>
+      <span class="desliza solo-chico" aria-hidden="true">deslizá →</span>
+    </div>
+    <div class="bento">
+      <article class="baldosa b-fotos" data-r>
+        <h3><svg class="ico"><use href="#i-foto"/></svg>Las facturas de los proveedores, con una foto</h3>
+        <p>Vueltito lee cada renglón, reconoce el producto, calcula el costo y el precio nuevo y suma al stock. Lo dudoso te lo marca, y nada cambia hasta que confirmás.</p>
+        <div class="visual lectura">
+          <div class="papel" aria-hidden="true"><i class="c"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="renglones" aria-label="Ejemplo de una factura leída">
+            <div class="renglon" style="--i:0"><span class="punto ok"></span><span class="que">C.COLA 1,5 LTS x6<small>Coca-Cola 1,5 L · ya lo conocía</small></span><span class="precio">$ 2.450 → <b>$ 3.200</b></span></div>
+            <div class="renglon" style="--i:1"><span class="punto rev"></span><span class="que">GALL. S/AZ 200G<small>¿Galletitas sin azúcar? · revisar</small></span><span class="precio">$ 1.380 → <b>$ 1.800</b></span></div>
+            <div class="renglon" style="--i:2"><span class="punto nuevo"></span><span class="que">QUESO PATEGRAS<small>Producto nuevo</small></span><span class="precio"><b>$ 8.900</b>/kg</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="baldosa" data-r>
+        <h3><svg class="ico"><use href="#i-balanza"/></svg>La caja</h3>
+        <p>Escaneás o escribís el código, ponés el peso y cobrás con el vuelto bien grande.</p>
+        <div class="visual">
+          <div class="peso"><input class="campo" id="gramos" value="350" inputmode="decimal" autocomplete="off" aria-label="Peso, en gramos o en kilos"><svg class="ico"><use href="#i-flecha"/></svg><output class="campo listo" id="kilos" for="gramos">0,350 kg</output></div>
+          <p class="nota">Probá: si lo escribís en gramos, se da cuenta solo.</p>
+        </div>
+      </article>
+
+      <article class="baldosa" data-r>
+        <h3><svg class="ico"><use href="#i-etiqueta"/></svg>Precios y etiquetas</h3>
+        <p>Costo más tu ganancia, con tu redondeo y el IVA. Cada precio que cambia deja su etiqueta lista.</p>
+        <div class="visual gondola">
+          <div class="giro" role="img" aria-label="El precio del queso cremoso pasa de 8.400 a 9.000 pesos el kilo">
+            <div class="cara antes"><small>Queso cremoso · kg</small><strong>$ 8.400</strong></div>
+            <div class="cara ahora"><small>Queso cremoso · kg</small><strong>$ 9.000</strong></div>
+          </div>
+          <span class="listo-imprimir"><svg class="ico"><use href="#i-tilde"/></svg>Lista</span>
+        </div>
+      </article>
+
+      <article class="baldosa" data-r>
+        <h3><svg class="ico"><use href="#i-clientes"/></svg>Fiado y clientes</h3>
+        <p>Quién compra, cada cuánto y quién debe.</p>
+        <div class="visual fiado" aria-label="Ejemplo de clientes">
+          <div class="persona"><span class="ini">M</span><span>Marta</span><b class="debe">debe $ 12.400</b></div>
+          <div class="persona"><span class="ini">R</span><span>Don Raúl</span><b class="debe">debe $ 3.900</b></div>
+          <div class="persona"><span class="ini">S</span><span>Sofía</span><b class="aldia">al día</b></div>
+        </div>
+      </article>
+
+      <article class="baldosa" data-r>
+        <h3><svg class="ico"><use href="#i-pedidos"/></svg>Pedidos a proveedores</h3>
+        <p>Sugiere qué pedir según lo que se vende, y sale por WhatsApp.</p>
+        <div class="visual mensaje"><b>Pedido para la distribuidora</b>2 bultos de leche entera 1 L (x12)<br>1 bulto de yerba 1 kg (x10)<span class="hora-msj">19:02 <svg class="ico"><use href="#i-doble"/></svg></span></div>
+      </article>
+    </div>
+    <div class="tambien">
+      <span><svg class="ico"><use href="#i-factura"/></svg>Factura electrónica de ARCA</span>
+      <span><svg class="ico"><use href="#i-barras"/></svg>80.000 códigos de barras argentinos</span>
+      <span><svg class="ico"><use href="#i-numeros"/></svg>Cómo va el negocio, por hora y por mes</span>
+      <span><svg class="ico"><use href="#i-celu"/></svg>App en el celular</span>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="libreta" style="padding-top:24px">
+  <div class="env">
+    <div class="titulo">
+      <span class="etiqueta n"><span class="num">03</span>Antes y ahora</span>
+      <h2>Chau libreta, <em>hola Vueltito.</em></h2>
+    </div>
+    <div class="comparar" data-r>
+      <div class="capa capa-vueltito">
+        <div class="titulo-capa"><span class="palabra">vuelt<span class="i">ı<svg viewBox="0 0 64 64"><use href="#caramelo"/></svg></span>to</span></div>
+        <div class="fila"><span>Marta · debe $ 12.400<small>anotado en cada venta, a su nombre</small></span><span class="ok"><svg class="ico"><use href="#i-tilde"/></svg></span></div>
+        <div class="fila"><span>Factura leída, precios calculados<small>con tu ganancia, tu redondeo y el IVA</small></span><span class="ok"><svg class="ico"><use href="#i-tilde"/></svg></span></div>
+        <div class="fila"><span>6 etiquetas listas para imprimir<small>sólo las que cambiaron</small></span><span class="ok"><svg class="ico"><use href="#i-tilde"/></svg></span></div>
+        <div class="fila"><span>Pedido sugerido, listo para WhatsApp<small>según lo que se vende, en bultos</small></span><span class="ok"><svg class="ico"><use href="#i-tilde"/></svg></span></div>
+      </div>
+      <div class="capa capa-libreta" aria-hidden="true">
+        <div class="titulo-capa">La libreta</div>
+        <div class="fila">Fiado Marta: $12.400 (¿o eran 14?)</div>
+        <div class="fila">Llegó factura → precios con la calculadora</div>
+        <div class="fila"><span class="tachado">Etiquetas nuevas</span>&nbsp;otra vez a mano...</div>
+        <div class="fila">Pedido: ¡¡acordarse de la leche!!</div>
+      </div>
+      <div class="manija"><svg class="ico"><use href="#i-flechas"/></svg></div>
+      <input type="range" min="0" max="100" value="50" id="comparar" aria-label="Comparar la libreta con Vueltito: hacia la izquierda se ve Vueltito, hacia la derecha la libreta">
+    </div>
+  </div>
+</section>
+
+<section class="bloque banda" id="tranquilidad">
+  <div class="env">
+    <div class="titulo">
+      <span class="etiqueta n"><span class="num">04</span>Tranquilidad</span>
+      <h2>Que la caja <em>no pare nunca.</em></h2>
+    </div>
+    <div class="tranquilidad">
+      <div class="tranquilo" data-r><svg class="ico"><use href="#i-sin-red"/></svg><div><h3>Sin internet, se sigue cobrando</h3><p>La factura electrónica y la lectura de facturas esperan a que vuelva.</p></div></div>
+      <div class="tranquilo" data-r><svg class="ico"><use href="#i-copia"/></svg><div><h3>Copia de seguridad diaria</h3><p>Revisada, y una guardada fuera del negocio.</p></div></div>
+      <div class="tranquilo" data-r><svg class="ico"><use href="#i-actualiza"/></svg><div><h3>Se actualiza solo</h3><p>Prueba la versión nueva aparte; si algo no anda, no toca nada.</p></div></div>
+      <div class="tranquilo" data-r><svg class="ico"><use href="#i-candado"/></svg><div><h3>Ayuda a distancia, segura</h3><p>Por una conexión privada y cifrada, sin abrir nada en el router.</p></div></div>
+      <div class="tranquilo" data-r><svg class="ico"><use href="#i-pc"/></svg><div><h3>Con lo que ya tenés</h3><p>La PC de la caja, tu ticketera y tu lector de códigos.</p></div></div>
+      <div class="tranquilo" data-r><svg class="ico"><use href="#i-casa"/></svg><div><h3>Los datos son del negocio</h3><p>Todo queda en la PC del negocio, no en un sistema ajeno.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="tu-negocio">
+  <div class="env propio">
+    <div class="texto">
+      <span class="etiqueta n"><span class="num">05</span>Tu negocio</span>
+      <h2 style="margin-top:14px">Se le enseña <em>como a alguien nuevo.</em></h2>
+      <p>Los códigos cortos de siempre, los atajos de la caja vieja y las reglas de precios de cada rubro. Se le dicen en castellano, y las ves y confirmás antes de que cuenten.</p>
+    </div>
+    <div class="charla" data-r aria-label="Ejemplo de cómo se le enseña una regla de precios">
+      <div class="globo dice"><small><svg class="ico" style="width:14px;height:14px"><use href="#i-chispa"/></svg>Enseñarle algo</small><span class="escrito" id="escrito">“A los quesos ponele 35% de ganancia y redondeá a la centena.”</span></div>
+      <div class="globo regla" id="regla"><small>Regla nueva</small>
+        <dl id="regla-datos"><dt>Rubro</dt><dd>Quesos</dd><dt>Ganancia</dt><dd>35%</dd><dt>Redondeo</dt><dd>a $ 100</dd></dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="preguntas" style="padding-top:24px">
+  <div class="env">
+    <div class="titulo">
+      <span class="etiqueta n"><span class="num">06</span>Preguntas</span>
+      <h2>Lo que <em>siempre nos preguntan.</em></h2>
+    </div>
+    <div class="preguntas">
+      <div>
+        <details open><summary>¿Necesito internet para usarlo?<span class="mas" aria-hidden="true"></span></summary><p>Para cobrar, no: la caja sigue andando y sale el ticket. Internet se usa para la factura electrónica, para leer las facturas de los proveedores y para buscar códigos nuevos, y eso espera a que vuelva.</p></details>
+        <details><summary>¿Tengo que dejar el sistema que uso ahora?<span class="mas" aria-hidden="true"></span></summary><p>No de golpe. Vueltito se instala al lado y andan los dos a la vez hasta que estén cómodos. Cuando se puede, traemos los productos del sistema anterior con sus códigos y precios.</p></details>
+        <details><summary>¿Qué pasa si se rompe la PC?<span class="mas" aria-hidden="true"></span></summary><p>Hay una copia de seguridad por día de los últimos 60 días, cada una revisada, y una guardada fuera del negocio. Se vuelve a una copia en la misma PC o en una nueva.</p></details>
+      </div>
+      <div>
+        <details><summary>¿Anda con mi lector de códigos y mi ticketera?<span class="mas" aria-hidden="true"></span></summary><p>Sí. El lector de códigos USB funciona como un teclado y la caja lo reconoce sola, esté donde esté el cursor. El ticket sale por la ticketera que ya tenés.</p></details>
+        <details><summary>¿Quién lee las facturas de los proveedores?<span class="mas" aria-hidden="true"></span></summary><p>Una inteligencia artificial lee la foto y propone qué producto es cada renglón y cómo quedan los precios. Lo dudoso queda marcado para revisar, y nada cambia hasta que confirmás.</p></details>
+        <details><summary>¿Hace factura electrónica?<span class="mas" aria-hidden="true"></span></summary><p>Sí, de ARCA, desde la misma caja, con su CAE y su QR. Es opcional: si no la necesitás, no se activa.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cierre" id="contacto">
+  <div class="env">
+    <div class="tarjeta-cierre" data-r>
+      <svg class="dulce c1" viewBox="0 0 64 64" aria-hidden="true"><use href="#caramelo"/></svg>
+      <svg class="dulce c2" viewBox="0 0 64 64" aria-hidden="true"><use href="#caramelo"/></svg>
+      <span class="serif">Se terminó el vuelto en caramelos.</span>
+      <h2>¿Querés verlo andando en tu negocio?</h2>
+      <p class="sub">Contanos qué vendés y qué sistema usás hoy, y te mostramos cómo quedaría.</p>
+      <div class="acciones" style="margin-top:28px">
+        <!-- PENDIENTE: el canal de contacto (WhatsApp, mail o formulario). No se
+             publica uno inventado. -->
+        <a class="boton" href="#contacto" data-pendiente="contacto" id="escribinos">Escribinos <svg class="ico"><use href="#i-flecha"/></svg></a>
+      </div>
+      <ol class="pasos" aria-label="Cómo empezamos">
+        <li><span><b>Miramos cómo trabajan</b>Cómo cobran, qué códigos usan y qué sistema tienen.</span></li>
+        <li><span><b>Lo instalamos al lado del viejo</b>Con tus productos, y los dos andan a la vez hasta que estén cómodos.</span></li>
+        <li><span><b>Y quedamos cerca</b>Actualizaciones y copias solas, y ayuda a distancia.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="env">
+    <span>Vueltito es un producto de <a href="https://legios.com.ar">Legios</a>.</span>
+    <span>Hecho en Argentina · <a class="subir" href="#">Volver arriba ↑</a></span>
+  </div>
+  <div class="gigante" aria-hidden="true"><span class="palabra"><span class="letra">v</span><span class="letra">u</span><span class="letra">e</span><span class="letra">l</span><span class="letra">t</span><span class="letra i">ı<svg viewBox="0 0 64 64"><use href="#caramelo"/></svg></span><span class="letra">t</span><span class="letra">o</span></span></div>
+</footer>
+
+<script>
+(function(){
+  var raiz=document.documentElement;
+  var quieto=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fino=matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var pesos=new Intl.NumberFormat('es-AR');
+  var hayIO='IntersectionObserver' in window;
+  function $(s,c){return (c||document).querySelector(s)}
+  function $$(s,c){return [].slice.call((c||document).querySelectorAll(s))}
+  function plata(n){return '$ '+pesos.format(Math.round(n))}
+
+  /* --- tema claro / oscuro --- */
+  $('.tema').addEventListener('click',function(){
+    var oscuroAhora=raiz.dataset.tema?raiz.dataset.tema==='oscuro':matchMedia('(prefers-color-scheme: dark)').matches;
+    var nuevo=oscuroAhora?'claro':'oscuro';
+    raiz.dataset.tema=nuevo;
+    try{localStorage.setItem('vueltito-tema',nuevo)}catch(e){}
+  });
+
+  /* --- aparición al entrar en pantalla --- */
+  var reveladas=$$('[data-r]');
+  if(hayIO){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visto');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.12});
+    reveladas.forEach(function(e){io.observe(e)});
+  }else reveladas.forEach(function(e){e.classList.add('visto')});
+
+  /* --- números que cuentan --- */
+  if(hayIO&&!quieto){
+    var ioc=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(!e.isIntersecting)return;ioc.unobserve(e.target);
+      var el=e.target,hasta=+el.dataset.cuenta,t0=null;
+      (function paso(t){if(t){t0=t0||t;var p=Math.min(1,(t-t0)/1300);el.textContent=pesos.format(Math.round(hasta*(1-Math.pow(1-p,3))));if(p>=1)return}requestAnimationFrame(paso)})();
+    })},{threshold:.6});
+    $$('[data-cuenta]').forEach(function(e){ioc.observe(e)});
+  }
+
+  /* --- la caja de la portada --- */
+  var TOTAL=11950, paga=15000, vueltoMostrado=3050, contexto=null;
+  var elVuelto=$('#vuelto'), caja=$('#vuelto-caja'), escena=$('.escena'), vivo=$('#vivo'), cobrar=$('#cobrar');
+  function animarVuelto(hasta){
+    var desde=vueltoMostrado; vueltoMostrado=hasta;
+    caja.classList.remove('salta'); void caja.offsetWidth; caja.classList.add('salta');
+    if(quieto){elVuelto.textContent=plata(hasta);return}
+    var t0=null;
+    function paso(t){t0=t0||t;var p=Math.min(1,(t-t0)/500);elVuelto.textContent=plata(desde+(hasta-desde)*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(paso)}
+    requestAnimationFrame(paso);
+  }
+  function reiniciar(){escena.classList.remove('impreso');cobrar.classList.remove('hecho');cobrar.textContent='Cobrar'}
+  $$('.billete').forEach(function(b){
+    b.addEventListener('click',function(){
+      $$('.billete').forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
+      paga=+b.dataset.paga; reiniciar(); animarVuelto(paga-TOTAL);
+      $('#vuelto-rotulo').textContent=paga===TOTAL?'Sin vuelto':'Vuelto';
+      vivo.textContent='Paga con '+plata(paga)+'. Vuelto: '+plata(paga-TOTAL)+'.';
+    });
+  });
+  function campanita(){
+    try{
+      var C=window.AudioContext||window.webkitAudioContext; if(!C)return;
+      contexto=contexto||new C(); var t=contexto.currentTime;
+      [1318.5,1760].forEach(function(f,i){
+        var o=contexto.createOscillator(),g=contexto.createGain(),t1=t+i*.09;
+        o.type='sine';o.frequency.value=f;
+        g.gain.setValueAtTime(.0001,t1);g.gain.exponentialRampToValueAtTime(.14,t1+.01);g.gain.exponentialRampToValueAtTime(.0001,t1+.6);
+        o.connect(g);g.connect(contexto.destination);o.start(t1);o.stop(t1+.65);
+      });
+    }catch(e){}
+  }
+  var COLORES=[['#ff4d9a','#ff9cc8'],['#ffb3d4','#ffe0ee'],['#e0187a','#ff9cc8'],['#ffffff','#ffd1e6']];
+  function rafaga(x,y,n){
+    if(quieto||!document.body.animate)return;
+    for(var i=0;i<n;i++){
+      var s=document.createElementNS('http://www.w3.org/2000/svg','svg');
+      s.setAttribute('viewBox','0 0 64 64');s.setAttribute('class','dulce-vuela');s.setAttribute('aria-hidden','true');
+      s.innerHTML='<use href="#caramelo"/>';
+      var c=COLORES[i%COLORES.length],tam=22+Math.random()*24;
+      s.style.cssText='--c-cuerpo:'+c[0]+';--c-env:'+c[1]+';width:'+tam+'px;height:'+tam+'px';
+      document.body.appendChild(s);
+      var ang=(-160+Math.random()*140)*Math.PI/180, v=160+Math.random()*300;
+      var dx=Math.cos(ang)*v, dy=Math.sin(ang)*v, giro=(Math.random()-.5)*900;
+      var a=s.animate([
+        {transform:'translate('+x+'px,'+y+'px) translate(-50%,-50%) rotate(0deg) scale(.4)',opacity:1},
+        {transform:'translate('+(x+dx*.7)+'px,'+(y+dy)+'px) translate(-50%,-50%) rotate('+giro*.6+'deg) scale(1)',opacity:1,offset:.45},
+        {transform:'translate('+(x+dx)+'px,'+(y+dy+320)+'px) translate(-50%,-50%) rotate('+giro+'deg) scale(.9)',opacity:0}
+      ],{duration:1300+Math.random()*600,easing:'cubic-bezier(.25,.7,.4,1)'});
+      a.onfinish=(function(el){return function(){el.remove()}})(s);
+    }
+  }
+  function centro(el){var r=el.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2]}
+  cobrar.addEventListener('click',function(){
+    if(escena.classList.contains('impreso')){reiniciar();vivo.textContent='';return}
+    $('#t-paga').textContent=plata(paga); $('#t-vuelto').textContent=plata(paga-TOTAL);
+    var ahora=new Date();
+    $('#t-fecha').textContent=ahora.toLocaleDateString('es-AR')+' · '+ahora.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit',hour12:false});
+    escena.classList.add('impreso'); cobrar.classList.add('hecho'); cobrar.textContent='¡Listo!';
+    var c=centro(cobrar); rafaga(c[0],c[1],18); campanita();
+    vivo.textContent='Cobrado. Vuelto: '+plata(paga-TOTAL)+'. Salió el ticket.';
+  });
+  $('#escribinos').addEventListener('click',function(){var c=centro(this);rafaga(c[0],c[1],14)});
+
+  if(fino&&!quieto){
+    var ventana=$('.ventana');
+    escena.addEventListener('pointermove',function(e){
+      var r=escena.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      ventana.style.setProperty('--ry',(x*4).toFixed(2)+'deg');ventana.style.setProperty('--rx',(-y*3).toFixed(2)+'deg');
+    });
+    escena.addEventListener('pointerleave',function(){ventana.style.setProperty('--ry','0deg');ventana.style.setProperty('--rx','0deg')});
+    $('.bento').addEventListener('pointermove',function(e){
+      var b=e.target.closest('.baldosa');if(!b)return;var r=b.getBoundingClientRect();
+      b.style.setProperty('--mx',(e.clientX-r.left)+'px');b.style.setProperty('--my',(e.clientY-r.top)+'px');
+    });
+  }
+
+  /* --- menú del celular --- */
+  var botonMenu=$('.menu-boton');
+  function menu(abrir){
+    raiz.classList.toggle('menu-abierto',abrir);
+    botonMenu.setAttribute('aria-expanded',abrir?'true':'false');
+    botonMenu.setAttribute('aria-label',abrir?'Cerrar el menú':'Abrir el menú');
+  }
+  botonMenu.addEventListener('click',function(){menu(!raiz.classList.contains('menu-abierto'))});
+  $('.velo').addEventListener('click',function(){menu(false)});
+  $$('.hoja a').forEach(function(a){a.addEventListener('click',function(){menu(false)})});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')menu(false)});
+
+  /* --- la barra de abajo aparece cuando el botón de la portada ya no se ve,
+         y se va cuando llega el cierre --- */
+  var barraAbajo=$('#barra-abajo');
+  if(hayIO){
+    var estado={portada:true,cierre:false,pie:false};
+    var ioBarra=new IntersectionObserver(function(es){
+      es.forEach(function(e){estado[e.target.dataset.zona]=e.isIntersecting});
+      barraAbajo.classList.toggle('visible',!estado.portada&&!estado.cierre&&!estado.pie);
+    });
+    [['.portada .acciones','portada'],['#contacto','cierre'],['footer','pie']].forEach(function(z){var el=$(z[0]);el.dataset.zona=z[1];ioBarra.observe(el)});
+  }
+
+  /* --- carruseles del celular: puntitos y cuál está al medio --- */
+  function carrusel(lista,clase,alActivar){
+    var hijos=[].slice.call(lista.children),puntos=document.createElement('div');
+    puntos.className='puntos '+clase;
+    hijos.forEach(function(h,i){
+      var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Ir a '+(i+1)+' de '+hijos.length);
+      b.addEventListener('click',function(){lista.scrollTo({left:h.offsetLeft-(lista.clientWidth-h.offsetWidth)/2,behavior:quieto?'auto':'smooth'})});
+      puntos.appendChild(b);
+    });
+    lista.parentNode.insertBefore(puntos,lista.nextSibling);
+    var botones=[].slice.call(puntos.children);
+    function marcar(i){botones.forEach(function(b,j){b.classList.toggle('activo',i===j)})}
+    marcar(0);
+    if(hayIO){
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){
+        if(!e.isIntersecting||getComputedStyle(lista).overflowX==='visible')return;
+        var i=hijos.indexOf(e.target);marcar(i);if(alActivar)alActivar(e.target);
+      })},{root:lista,threshold:.6});
+      hijos.forEach(function(h){io.observe(h)});
+    }
+  }
+
+  /* --- la píldora del menú sigue a la sección del medio de la pantalla --- */
+  var ind=$('.menu .indicador'),enlaces=$$('.menu a');
+  if(hayIO){
+    var visibles={};
+    var ioNav=new IntersectionObserver(function(es){
+      es.forEach(function(e){visibles[e.target.id]=e.isIntersecting});
+      var activo=null;
+      enlaces.forEach(function(a){var on=!!visibles[a.getAttribute('href').slice(1)];a.classList.toggle('activo',on);if(on)activo=a});
+      if(activo){ind.style.width=activo.offsetWidth+'px';ind.style.transform='translateX('+activo.offsetLeft+'px)';ind.style.opacity='1'}
+      else ind.style.opacity='0';
+    },{rootMargin:'-45% 0px -50% 0px'});
+    enlaces.forEach(function(a){var sec=document.getElementById(a.getAttribute('href').slice(1));if(sec)ioNav.observe(sec)});
+  }
+
+  /* --- gramos o kilos --- */
+  var gramos=$('#gramos'),kilos=$('#kilos');
+  gramos.addEventListener('input',function(){
+    var v=gramos.value.replace(/\s/g,''),n=parseFloat(v.replace(',','.'));
+    if(!v||isNaN(n)){kilos.textContent='—';return}
+    // Sin coma ni punto y más de 20, es casi seguro que lo escribieron en gramos.
+    if(!/[.,]/.test(v)&&n>20)n=n/1000;
+    kilos.textContent=n.toLocaleString('es-AR',{minimumFractionDigits:3,maximumFractionDigits:3})+' kg';
+  });
+
+  /* --- un día con Vueltito: el reloj sigue al paso que pasa por el medio --- */
+  var pasos=$$('.paso-dia'),anillo=$('#anillo'),hora=$('#hora'),momento=$('#momento'),astro=$('#astro');
+  var NOMBRES={manana:'de la mañana',mediodia:'del mediodía',tarde:'de la tarde',noche:'de la noche'};
+  var punta=$('#punta'),marcas=$('#marcas');
+  // Una marca por hora, más larga cada seis.
+  for(var m=0;m<24;m++){
+    var a=m/24*Math.PI*2,mayor=m%6===0,r1=mayor?70:74,l=document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1',(100+r1*Math.cos(a)).toFixed(1));l.setAttribute('y1',(100+r1*Math.sin(a)).toFixed(1));
+    l.setAttribute('x2',(100+79*Math.cos(a)).toFixed(1));l.setAttribute('y2',(100+79*Math.sin(a)).toFixed(1));
+    if(mayor)l.setAttribute('class','mayor');marcas.appendChild(l);
+  }
+  function activar(p){
+    pasos.forEach(function(o){o.classList.toggle('actual',o===p)});
+    var h=+p.dataset.h,cielo=p.dataset.cielo;
+    hora.textContent=p.dataset.hora; momento.textContent=NOMBRES[cielo];
+    anillo.style.strokeDashoffset=(565.5*(1-h/24)).toFixed(1);
+    $$('.cielo').forEach(function(c){c.classList.toggle('activo',c.classList.contains(cielo))});
+    astro.innerHTML='<use href="#'+(cielo==='noche'?'i-luna':'i-sol')+'"/>';
+    astro.style.transform=cielo==='noche'?'rotate(-20deg)':'rotate('+(h*15)+'deg)';
+    punta.style.transform='rotate('+(h*15)+'deg)';
+  }
+  if(hayIO){
+    // En la compu manda el scroll de la página; en el celu, el deslizar del carrusel.
+    var listaDia=$('.pasos-dia');
+    var iod=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&getComputedStyle(listaDia).overflowX==='visible')activar(e.target)})},{rootMargin:'-48% 0px -48% 0px'});
+    pasos.forEach(function(p){iod.observe(p)});
+    carrusel(listaDia,'de-dia',activar);
+    carrusel($('.bento'),'de-bento');
+  }
+  activar(pasos[0]);
+
+  /* --- la libreta contra Vueltito --- */
+  var comp=$('.comparar'),rango=$('#comparar');
+  rango.addEventListener('input',function(){comp.style.setProperty('--x',rango.value+'%');comp.classList.add('tocado')});
+  if(hayIO&&!quieto){
+    var ioComp=new IntersectionObserver(function(es){
+      if(!es[0].isIntersecting)return;ioComp.disconnect();
+      var t0=null;
+      function paso(t){t0=t0||t;var p=Math.min(1,(t-t0)/2200);
+        var v=50+Math.sin(p*Math.PI*2)*26*(1-p);rango.value=v;comp.style.setProperty('--x',v+'%');
+        if(p<1)requestAnimationFrame(paso)}
+      setTimeout(function(){requestAnimationFrame(paso)},500);
+    },{threshold:.5});
+    ioComp.observe(comp);
+  }
+
+  /* --- enseñarle algo: se escribe solo --- */
+  var REGLAS=[
+    {dice:'A los quesos ponele 35% de ganancia y redondeá a la centena.',regla:[['Rubro','Quesos'],['Ganancia','35%'],['Redondeo','a $ 100']]},
+    {dice:'Las gaseosas van con 25% arriba del costo, con el IVA incluido.',regla:[['Rubro','Gaseosas'],['Ganancia','25%'],['IVA','incluido']]},
+    {dice:'Lo que se vende por kilo, redondealo a $ 50.',regla:[['Se vende','por kilo'],['Redondeo','a $ 50']]}
+  ];
+  var escrito=$('#escrito'),regla=$('#regla'),datos=$('#regla-datos'),charla=$('.charla');
+  if(!quieto&&hayIO){
+    var corriendo=false,n=0;
+    function escribir(){
+      var r=REGLAS[n%REGLAS.length],texto='“'+r.dice+'”',i=0;
+      regla.classList.add('oculto');escrito.textContent='';
+      (function letra(){
+        escrito.textContent=texto.slice(0,++i);
+        if(i<texto.length)setTimeout(letra,24+Math.random()*36);
+        else setTimeout(function(){datos.innerHTML=r.regla.map(function(p){return '<dt>'+p[0]+'</dt><dd>'+p[1]+'</dd>'}).join('');regla.classList.remove('oculto');n++;setTimeout(escribir,4200)},450);
+      })();
+    }
+    var ioCh=new IntersectionObserver(function(es){if(es[0].isIntersecting&&!corriendo){corriendo=true;escribir()}},{threshold:.4});
+    ioCh.observe(charla);
+  }
+})();
+</script>
+</body>
+</html>
