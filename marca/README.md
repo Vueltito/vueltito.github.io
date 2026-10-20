@@ -1,7 +1,7 @@
 # Marca de Vueltito
 
-El caramelo envuelto: el vuelto que se daba cuando no había monedas. Todo sale de un solo script (las letras del
-logotipo son Geist Bold pasada a curvas, así que los SVG no dependen de tener la fuente instalada).
+El caramelo envuelto: el vuelto que se daba cuando no había monedas. Todo sale de `generar_marca.py` (las letras son
+Geist Bold y el lema Instrument Serif itálica, pasadas a curvas: los SVG no dependen de tener las fuentes instaladas).
 
 | Archivo | Para qué |
 |---|---|
@@ -11,6 +11,9 @@ logotipo son Geist Bold pasada a curvas, así que los SVG no dependen de tener l
 | `vueltito-icono-maskable.svg` | Con margen de seguridad, para íconos *maskable* de Android. |
 | `vueltito-caramelo.svg` / `-blanco.svg` | El caramelo solo, rosa (sobre fondo claro) o blanco (sobre rosa). |
 | `vueltito-logo.svg` / `-blanco.svg` / `-rosa.svg` | El logotipo: "vueltito" con el caramelo de punto de la i. |
+| `vueltito-lema.svg` / `-blanco.svg` | El logotipo con el lema: "vueltito *sin vueltas*", en una línea. |
+| `vueltito-lema-apilado.svg` / `-blanco.svg` | Lo mismo en dos líneas, para cuadrados y perfiles. |
+| `png/lema-*.png` | Esas cuatro versiones en PNG (fondo transparente). |
 | `vueltito.ico` | Windows: 16, 24, 32, 48, 64, 128 y 256 px. Es el ícono del acceso directo de la caja en el escritorio. |
 | `png/icono-*.png` | El ícono en PNG, de 16 a 1024 px. |
 | `png/app-*.png`, `png/apple-touch-icon.png` | Para instalar como app en el celu (manifest y iPhone). |
