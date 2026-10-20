@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs>
+    <linearGradient id="fbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7ab8"/><stop offset=".5" stop-color="#e0187a"/><stop offset="1" stop-color="#9e117a"/></linearGradient>
+    <radialGradient id="fluz" cx="22%" cy="16%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".42"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <filter id="fsombra" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="26"/></filter>
+    <linearGradient id="cenv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffeaf3"/><stop offset="1" stop-color="#ffbfdc"/></linearGradient>
+    <radialGradient id="cvol" cx="34%" cy="28%" r="80%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#5a0838" stop-opacity=".26"/></radialGradient>
+    <clipPath id="cclip"><ellipse rx="178" ry="150"/></clipPath></defs>
+    <rect width="1024" height="1024"  fill="url(#fbg)"/>
+    <rect width="1024" height="1024"  fill="url(#fluz)"/>
+    <rect x="6" y="6" width="1012" height="1012"  fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="4"/><ellipse cx="512" cy="760" rx="215" ry="30" fill="#4a0630" fill-opacity=".3" filter="url(#fsombra)"/>
+  <g transform="translate(512 500) rotate(-24) scale(1.120)">
+    <g><path d="M 182 -30 C 220 -58, 256 -100, 298 -134 C 316 -98, 302 -70, 316 -44 C 328 -18, 314 6, 322 28 C 332 56, 314 88, 302 134 C 258 104, 220 58, 182 30 Z" fill="url(#cenv)"/><path d="M 196 -14 L 290 -104" fill="none" stroke="#e0187a" stroke-width="7" stroke-linecap="round" stroke-opacity=".38"/><path d="M 200 0 L 312 -4" fill="none" stroke="#e0187a" stroke-width="7" stroke-linecap="round" stroke-opacity=".38"/><path d="M 196 14 L 294 104" fill="none" stroke="#e0187a" stroke-width="7" stroke-linecap="round" stroke-opacity=".38"/></g><g transform="scale(-1 1)"><path d="M 182 -30 C 220 -58, 256 -100, 298 -134 C 316 -98, 302 -70, 316 -44 C 328 -18, 314 6, 322 28 C 332 56, 314 88, 302 134 C 258 104, 220 58, 182 30 Z" fill="url(#cenv)"/><path d="M 196 -14 L 290 -104" fill="none" stroke="#e0187a" stroke-width="7" stroke-linecap="round" stroke-opacity=".38"/><path d="M 200 0 L 312 -4" fill="none" stroke="#e0187a" stroke-width="7" stroke-linecap="round" stroke-opacity=".38"/><path d="M 196 14 L 294 104" fill="none" stroke="#e0187a" stroke-width="7" stroke-linecap="round" stroke-opacity=".38"/></g>
+    <ellipse cx="-184" rx="18" ry="36" fill="#ffb3d4"/><ellipse cx="184" rx="18" ry="36" fill="#ffb3d4"/>
+    <ellipse rx="178" ry="150" fill="#fffafc"/>
+    <g clip-path="url(#cclip)"><g transform="rotate(32)" fill="#ff4d9a"><rect x="-186" y="-320" width="46" height="640"/><rect x="-70" y="-320" width="46" height="640"/><rect x="46" y="-320" width="46" height="640"/><rect x="162" y="-320" width="46" height="640"/></g></g>
+    <ellipse rx="178" ry="150" fill="url(#cvol)"/><ellipse cx="-72" cy="-84" rx="64" ry="22" fill="#fff" fill-opacity=".85" transform="rotate(-18 -72 -84)"/><ellipse cx="6" cy="-112" rx="13" ry="6" fill="#fff" fill-opacity=".6" transform="rotate(-10 6 -112)"/></g></svg>

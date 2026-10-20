@@ -7,10 +7,18 @@
 <meta name="description" content="Caja, precios y etiquetas, facturas de proveedores por foto, fiado, pedidos y factura electrónica de ARCA para comercios de todos los rubros. Con letra grande y todo con palabras.">
 <link rel="canonical" href="https://vueltito.legios.com.ar/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="marca/png/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <meta property="og:title" content="Vueltito">
 <meta property="og:description" content="El sistema del negocio, sin vueltas: cobrar, poner precios y cargar las facturas de los proveedores con una foto.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://vueltito.legios.com.ar/">
+<meta property="og:image" content="https://vueltito.legios.com.ar/marca/png/og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_AR">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#fffafc">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -440,7 +448,7 @@ input.campo:focus{border-color:var(--rosa-viva);box-shadow:0 0 0 4px var(--rosa-
 .pasos li::before{content:"0" counter(paso);font-family:var(--serif);font-style:italic;font-size:1.6rem;line-height:1;opacity:.85}
 .pasos b{display:block;font-size:1rem;font-weight:600;margin-bottom:2px}
 .tarjeta-cierre .dulce{z-index:-1;filter:drop-shadow(0 16px 16px rgba(60,0,30,.3))}
-.tarjeta-cierre .dulce.c1{left:7%;top:16%;width:84px;height:84px;--g:-24deg;--c-cuerpo:#fff;--c-env:#ffd1e6}
+.tarjeta-cierre .dulce.c1{left:7%;top:16%;width:84px;height:84px;--g:-24deg;--c-cuerpo:#fff;--c-env:#ffd1e6;--c-raya:#ff4d9a;--c-raya-op:1}
 .tarjeta-cierre .dulce.c2{right:8%;top:22%;width:60px;height:60px;--g:28deg;--c-cuerpo:#ffd1e6;--c-env:#fff;animation-delay:-3s}
 @media (max-width:719px){.tarjeta-cierre .dulce.c1{left:-12px;top:10px;width:56px;height:56px}.tarjeta-cierre .dulce.c2{right:-8px;top:18px;width:44px;height:44px}}
 
@@ -679,7 +687,7 @@ a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:tra
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <clipPath id="cuerpo-caramelo"><ellipse cx="32" cy="32" rx="15" ry="12.5"/></clipPath>
+    <clipPath id="cuerpo-caramelo"><ellipse rx="178" ry="150"/></clipPath>
     <linearGradient id="grad-trazo" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#ff9cc8"/><stop offset=".5" stop-color="#ff4d9a"/><stop offset="1" stop-color="#b03bff"/></linearGradient>
     <radialGradient id="volumen" cx="38%" cy="32%" r="75%">
       <stop offset="0" stop-color="#fff" stop-opacity=".55"/>
@@ -688,17 +696,15 @@ a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:tra
     </radialGradient>
   </defs>
   <!-- La marca: un caramelo envuelto, el vuelto que se daba cuando no había monedas. -->
-  <symbol id="caramelo" viewBox="0 0 64 64">
-    <g transform="rotate(-24 32 32)">
-      <path d="M19.5 32 L5.5 20.5 Q2.6 26.2 5.2 32 Q2.6 37.8 5.5 43.5 Z" style="fill:var(--c-env,#ff9cc8)"/>
-      <path d="M44.5 32 L58.5 20.5 Q61.4 26.2 58.8 32 Q61.4 37.8 58.5 43.5 Z" style="fill:var(--c-env,#ff9cc8)"/>
-      <path d="M8 24.5 L17 30.5 M8 39.5 L17 33.5 M56 24.5 L47 30.5 M56 39.5 L47 33.5" stroke="#fff" stroke-opacity=".55" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-      <ellipse cx="32" cy="32" rx="15" ry="12.5" style="fill:var(--c-cuerpo,#ff4d9a)"/>
-      <g clip-path="url(#cuerpo-caramelo)" stroke="#fff" stroke-opacity=".42" stroke-width="3.4" fill="none">
-        <path d="M14 16 L28 48"/><path d="M23 16 L37 48"/><path d="M32 16 L46 48"/><path d="M41 16 L55 48"/>
-      </g>
-      <ellipse cx="32" cy="32" rx="15" ry="12.5" fill="url(#volumen)"/>
-      <ellipse cx="26" cy="25.5" rx="4.8" ry="2.2" fill="#fff" opacity=".7" transform="rotate(-18 26 25.5)"/>
+  <symbol id="caramelo" viewBox="-340 -340 680 680">
+    <g transform="rotate(-24)">
+      <path d="M 182 -30 C 220 -58, 256 -100, 298 -134 C 316 -98, 302 -70, 316 -44 C 328 -18, 314 6, 322 28 C 332 56, 314 88, 302 134 C 258 104, 220 58, 182 30 Z" style="fill:var(--c-env,#ff9cc8)"/><path d="M 196 -14 L 290 -104 M 200 0 L 312 -4 M 196 14 L 294 104" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="9" stroke-linecap="round"/>
+      <g transform="scale(-1 1)"><path d="M 182 -30 C 220 -58, 256 -100, 298 -134 C 316 -98, 302 -70, 316 -44 C 328 -18, 314 6, 322 28 C 332 56, 314 88, 302 134 C 258 104, 220 58, 182 30 Z" style="fill:var(--c-env,#ff9cc8)"/><path d="M 196 -14 L 290 -104 M 200 0 L 312 -4 M 196 14 L 294 104" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="9" stroke-linecap="round"/></g>
+      <ellipse cx="-184" rx="18" ry="36" style="fill:var(--c-env,#ff9cc8)"/><ellipse cx="184" rx="18" ry="36" style="fill:var(--c-env,#ff9cc8)"/>
+      <ellipse rx="178" ry="150" style="fill:var(--c-cuerpo,#ff4d9a)"/>
+      <g clip-path="url(#cuerpo-caramelo)"><g transform="rotate(32)" style="fill:var(--c-raya,#fff);fill-opacity:var(--c-raya-op,.5)"><rect x="-186" y="-320" width="46" height="640"/><rect x="-70" y="-320" width="46" height="640"/><rect x="46" y="-320" width="46" height="640"/><rect x="162" y="-320" width="46" height="640"/></g></g>
+      <ellipse rx="178" ry="150" fill="url(#volumen)"/>
+      <ellipse cx="-72" cy="-84" rx="64" ry="22" fill="#fff" fill-opacity=".8" transform="rotate(-18 -72 -84)"/>
     </g>
   </symbol>
   <symbol id="i-caja" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></symbol>
@@ -1115,7 +1121,7 @@ a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:tra
       });
     }catch(e){}
   }
-  var COLORES=[['#ff4d9a','#ff9cc8'],['#ffb3d4','#ffe0ee'],['#e0187a','#ff9cc8'],['#ffffff','#ffd1e6']];
+  var COLORES=[['#ff4d9a','#ff9cc8'],['#ffb3d4','#ffe0ee'],['#e0187a','#ff9cc8'],['#ffffff','#ffd1e6','#ff4d9a']];
   function rafaga(x,y,n){
     if(quieto||!document.body.animate)return;
     for(var i=0;i<n;i++){
@@ -1123,7 +1129,7 @@ a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:tra
       s.setAttribute('viewBox','0 0 64 64');s.setAttribute('class','dulce-vuela');s.setAttribute('aria-hidden','true');
       s.innerHTML='<use href="#caramelo"/>';
       var c=COLORES[i%COLORES.length],tam=22+Math.random()*24;
-      s.style.cssText='--c-cuerpo:'+c[0]+';--c-env:'+c[1]+';width:'+tam+'px;height:'+tam+'px';
+      s.style.cssText='--c-cuerpo:'+c[0]+';--c-env:'+c[1]+(c[2]?';--c-raya:'+c[2]+';--c-raya-op:1':'')+';width:'+tam+'px;height:'+tam+'px';
       document.body.appendChild(s);
       var ang=(-160+Math.random()*140)*Math.PI/180, v=160+Math.random()*300;
       var dx=Math.cos(ang)*v, dy=Math.sin(ang)*v, giro=(Math.random()-.5)*900;
