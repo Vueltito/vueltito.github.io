@@ -16,6 +16,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Geist:wght@400..800&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <script>
+  // Pages no puede emitir el certificado detrás del proxy de Cloudflare, así que no fuerza HTTPS: lo hace la página,
+  // sólo en el dominio propio y sin tocar la configuración de toda la zona.
+  if(location.protocol==='http:'&&location.hostname==='vueltito.legios.com.ar')location.replace('https://'+location.host+location.pathname+location.search+location.hash);
   // El tema elegido a mano gana sobre el del sistema; sin almacenamiento, manda el sistema.
   (function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('vueltito-tema');if(t==='claro'||t==='oscuro')d.dataset.tema=t}catch(e){}})();
 </script>
