@@ -284,7 +284,7 @@ section{scroll-margin-top:90px}
 .baldosa h3{display:flex;align-items:center;gap:10px}
 .baldosa h3 .ico{color:var(--rosa-texto)}
 .baldosa > p{color:var(--medio);font-size:.95rem;line-height:1.55}
-.baldosa .visual{margin-top:auto;padding-top:8px}
+.baldosa .escenario{margin-top:auto;padding-top:8px}
 @media (min-width:1040px){.b-fotos{grid-column:span 2}}
 
 .lectura{display:grid;gap:18px;align-items:center}
@@ -596,7 +596,27 @@ a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:tra
   /* qué hace: una baldosa por vez */
   .bento{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:4px var(--g) 8px;margin:0 calc(-1 * var(--g));scrollbar-width:none;position:relative;overscroll-behavior-x:contain}
   .bento::-webkit-scrollbar{display:none}
-  .baldosa{flex:0 0 86%;scroll-snap-align:center;padding:22px}
+  .baldosa{flex:0 0 86%;scroll-snap-align:center;padding:20px;gap:10px}
+  .baldosa > p{font-size:.92rem}
+  .baldosa .escenario{flex:1;display:grid;place-items:center;margin-top:6px;padding:16px 14px;border-radius:16px;background:var(--sup2);border:1px solid var(--borde)}
+  .baldosa .escenario > .visual{width:100%;padding-top:0}
+  .escenario .papel{display:none}
+  .escenario .lectura{grid-template-columns:1fr}
+  .escenario .mensaje{background:var(--sup);justify-self:start}
+  .escenario .campo:not(.listo){background:var(--sup)}
+  .escenario .renglon{background:var(--sup)}
+  .escenario .gondola{justify-content:center}
+  .baldosa .extra{display:none}
+  .escenario .renglones{gap:6px}
+  .escenario .renglon{padding:9px 12px;gap:10px}
+  .escenario .renglon .que{font-size:.84rem}
+  .escenario .renglon .que small,.escenario .renglon .viejo{display:none}
+  .escenario .fiado{gap:8px}
+  .escenario .peso{justify-content:center;gap:8px}
+  .escenario .campo{font-size:1rem;padding:9px 12px}
+  .escenario input.campo{width:76px}
+  .escenario .campo.listo{flex:none;white-space:nowrap}
+  .escenario .nota{text-align:center}
   .tambien{flex-wrap:nowrap;overflow-x:auto;margin:14px calc(-1 * var(--g)) 0;padding:0 var(--g);scrollbar-width:none}
   .tambien::-webkit-scrollbar{display:none}
   .tambien span{flex:none}
@@ -815,7 +835,7 @@ a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:tra
   <div class="env">
     <div class="titulo">
       <span class="etiqueta n"><span class="num">01</span>Un día con Vueltito</span>
-      <h2>De que se abre la persiana <em>hasta la medianoche.</em></h2>
+      <h2>Desde que se abre la persiana <em>hasta la medianoche.</em></h2>
       <span class="desliza" aria-hidden="true">deslizá para ver el día →</span>
     </div>
     <div class="dia">
@@ -854,52 +874,52 @@ a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:tra
     <div class="bento">
       <article class="baldosa b-fotos" data-r>
         <h3><svg class="ico"><use href="#i-foto"/></svg>Las facturas de los proveedores, con una foto</h3>
-        <p>Vueltito lee cada renglón, reconoce el producto, calcula el costo y el precio nuevo y suma al stock. Lo dudoso te lo marca, y nada cambia hasta que confirmás.</p>
-        <div class="visual lectura">
+        <p>Vueltito lee cada renglón, reconoce el producto, calcula el costo y el precio nuevo y suma al stock.<span class="extra"> Lo dudoso te lo marca, y nada cambia hasta que confirmás.</span></p>
+        <div class="escenario"><div class="visual lectura">
           <div class="papel" aria-hidden="true"><i class="c"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
           <div class="renglones" aria-label="Ejemplo de una factura leída">
-            <div class="renglon" style="--i:0"><span class="punto ok"></span><span class="que">C.COLA 1,5 LTS x6<small>Coca-Cola 1,5 L · ya lo conocía</small></span><span class="precio">$ 2.450 → <b>$ 3.200</b></span></div>
-            <div class="renglon" style="--i:1"><span class="punto rev"></span><span class="que">GALL. S/AZ 200G<small>¿Galletitas sin azúcar? · revisar</small></span><span class="precio">$ 1.380 → <b>$ 1.800</b></span></div>
+            <div class="renglon" style="--i:0"><span class="punto ok"></span><span class="que">C.COLA 1,5 LTS x6<small>Coca-Cola 1,5 L · ya lo conocía</small></span><span class="precio"><span class="viejo">$ 2.450 → </span><b>$ 3.200</b></span></div>
+            <div class="renglon" style="--i:1"><span class="punto rev"></span><span class="que">GALL. S/AZ 200G<small>¿Galletitas sin azúcar? · revisar</small></span><span class="precio"><span class="viejo">$ 1.380 → </span><b>$ 1.800</b></span></div>
             <div class="renglon" style="--i:2"><span class="punto nuevo"></span><span class="que">QUESO PATEGRAS<small>Producto nuevo</small></span><span class="precio"><b>$ 8.900</b>/kg</span></div>
           </div>
-        </div>
+        </div></div>
       </article>
 
       <article class="baldosa" data-r>
         <h3><svg class="ico"><use href="#i-balanza"/></svg>La caja</h3>
         <p>Escaneás o escribís el código, ponés el peso y cobrás con el vuelto bien grande.</p>
-        <div class="visual">
+        <div class="escenario"><div class="visual">
           <div class="peso"><input class="campo" id="gramos" value="350" inputmode="decimal" autocomplete="off" aria-label="Peso, en gramos o en kilos"><svg class="ico"><use href="#i-flecha"/></svg><output class="campo listo" id="kilos" for="gramos">0,350 kg</output></div>
           <p class="nota">Probá: si lo escribís en gramos, se da cuenta solo.</p>
-        </div>
+        </div></div>
       </article>
 
       <article class="baldosa" data-r>
         <h3><svg class="ico"><use href="#i-etiqueta"/></svg>Precios y etiquetas</h3>
         <p>Costo más tu ganancia, con tu redondeo y el IVA. Cada precio que cambia deja su etiqueta lista.</p>
-        <div class="visual gondola">
+        <div class="escenario"><div class="visual gondola">
           <div class="giro" role="img" aria-label="El precio del queso cremoso pasa de 8.400 a 9.000 pesos el kilo">
             <div class="cara antes"><small>Queso cremoso · kg</small><strong>$ 8.400</strong></div>
             <div class="cara ahora"><small>Queso cremoso · kg</small><strong>$ 9.000</strong></div>
           </div>
           <span class="listo-imprimir"><svg class="ico"><use href="#i-tilde"/></svg>Lista</span>
-        </div>
+        </div></div>
       </article>
 
       <article class="baldosa" data-r>
         <h3><svg class="ico"><use href="#i-clientes"/></svg>Fiado y clientes</h3>
         <p>Quién compra, cada cuánto y quién debe.</p>
-        <div class="visual fiado" aria-label="Ejemplo de clientes">
+        <div class="escenario"><div class="visual fiado" aria-label="Ejemplo de clientes">
           <div class="persona"><span class="ini">M</span><span>Marta</span><b class="debe">debe $ 12.400</b></div>
           <div class="persona"><span class="ini">R</span><span>Don Raúl</span><b class="debe">debe $ 3.900</b></div>
           <div class="persona"><span class="ini">S</span><span>Sofía</span><b class="aldia">al día</b></div>
-        </div>
+        </div></div>
       </article>
 
       <article class="baldosa" data-r>
         <h3><svg class="ico"><use href="#i-pedidos"/></svg>Pedidos a proveedores</h3>
         <p>Sugiere qué pedir según lo que se vende, y sale por WhatsApp.</p>
-        <div class="visual mensaje"><b>Pedido para la distribuidora</b>2 bultos de leche entera 1 L (x12)<br>1 bulto de yerba 1 kg (x10)<span class="hora-msj">19:02 <svg class="ico"><use href="#i-doble"/></svg></span></div>
+        <div class="escenario"><div class="visual mensaje"><b>Pedido para la distribuidora</b>2 bultos de leche entera 1 L (x12)<br>1 bulto de yerba 1 kg (x10)<span class="hora-msj">19:02 <svg class="ico"><use href="#i-doble"/></svg></span></div></div>
       </article>
     </div>
     <div class="tambien">
