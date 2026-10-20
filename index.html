@@ -431,6 +431,9 @@ input.campo:focus{border-color:var(--rosa-viva);box-shadow:0 0 0 4px var(--rosa-
 .tarjeta-cierre .acciones{justify-content:center}
 .tarjeta-cierre .boton{background:#fff;color:#c80f63;box-shadow:0 14px 36px -14px rgba(60,0,30,.6);padding:16px 28px;font-size:1.04rem}
 .tarjeta-cierre .boton:hover{transform:translateY(-1px)}
+.tarjeta-cierre .numero{margin-top:14px;font-size:.92rem;opacity:.85}
+.tarjeta-cierre .numero a{color:#fff;font-family:var(--mono);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.45)}
+.tarjeta-cierre .numero a:hover{border-color:#fff}
 .pasos{list-style:none;margin:64px auto 0;padding:24px 0 0;border-top:1px solid rgba(255,255,255,.22);display:grid;gap:18px;max-width:900px;text-align:left;counter-reset:paso}
 @media (min-width:720px){.pasos{grid-template-columns:repeat(3,1fr);gap:28px}}
 .pasos li{counter-increment:paso;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;font-size:.92rem;opacity:.95}
@@ -717,6 +720,7 @@ a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:tra
   <symbol id="i-deshacer" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5 5.5 5.5 0 0 1-5.5 5.5H11"/></symbol>
   <symbol id="i-tilde" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
   <symbol id="i-doble" viewBox="0 0 24 24"><path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M9 10.5c0 2.5 2 4.5 4.5 4.5l1.2-1.2-1.8-.9-.8.8c-.9-.4-1.6-1.1-2-2l.8-.8-.9-1.8L9 10.5Z"/></symbol>
   <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
   <symbol id="i-flechas" viewBox="0 0 24 24"><path d="m9 6-6 6 6 6"/><path d="m15 6 6 6-6 6"/></symbol>
   <symbol id="i-chispa" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/></symbol>
@@ -739,7 +743,7 @@ a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:tra
     <span class="indicador" aria-hidden="true"></span>
   </nav>
   <button class="tema" type="button" aria-label="Cambiar entre modo claro y oscuro"><svg class="ico sol"><use href="#i-sol"/></svg><svg class="ico luna"><use href="#i-luna"/></svg></button>
-  <a class="boton rosa arriba-cta" href="#contacto">Quiero verlo</a>
+  <a class="boton rosa arriba-cta" href="https://wa.me/5493492665908?text=Hola%2C%20quiero%20ver%20Vueltito%20andando%20en%20mi%20negocio." target="_blank" rel="noopener">Quiero verlo</a>
   <button class="menu-boton" type="button" aria-expanded="false" aria-controls="hoja" aria-label="Abrir el menú"><span></span><span></span></button>
 </header>
 <div class="velo" aria-hidden="true"></div>
@@ -750,11 +754,11 @@ a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:tra
   <a href="#tranquilidad"><span class="num">04</span>Tranquilidad<svg class="ico"><use href="#i-flecha"/></svg></a>
   <a href="#tu-negocio"><span class="num">05</span>Tu negocio<svg class="ico"><use href="#i-flecha"/></svg></a>
   <a href="#preguntas"><span class="num">06</span>Preguntas<svg class="ico"><use href="#i-flecha"/></svg></a>
-  <a class="boton rosa" href="#contacto">Quiero verlo andando</a>
+  <a class="boton rosa" href="https://wa.me/5493492665908?text=Hola%2C%20quiero%20ver%20Vueltito%20andando%20en%20mi%20negocio." target="_blank" rel="noopener"><svg class="ico"><use href="#i-whatsapp"/></svg>Quiero verlo andando</a>
 </nav>
 <div class="barra-abajo" id="barra-abajo">
   <span>¿Lo querés en tu negocio?</span>
-  <a class="boton rosa" href="#contacto">Quiero verlo</a>
+  <a class="boton rosa" href="https://wa.me/5493492665908?text=Hola%2C%20quiero%20ver%20Vueltito%20andando%20en%20mi%20negocio." target="_blank" rel="noopener">Quiero verlo</a>
 </div>
 
 <main>
@@ -766,7 +770,7 @@ a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:tra
       <h1 class="titulo-portada"><span class="l"><span>El sistema</span></span> <span class="l"><span>del negocio,</span></span> <span class="l"><span>sin <span class="subrayado"><em>vueltas.</em><svg class="trazo" viewBox="0 0 240 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 15 C 50 5, 92 21, 132 12 S 206 6, 236 13"/></svg></span></span></span></h1>
       <p class="bajada">Cobrar, poner precios, cargar las facturas de los proveedores con una foto y saber cómo va el mes.</p>
       <div class="acciones">
-        <a class="boton rosa" href="#contacto">Quiero verlo andando <svg class="ico"><use href="#i-flecha"/></svg></a>
+        <a class="boton rosa" href="https://wa.me/5493492665908?text=Hola%2C%20quiero%20ver%20Vueltito%20andando%20en%20mi%20negocio." target="_blank" rel="noopener">Quiero verlo andando <svg class="ico"><use href="#i-flecha"/></svg></a>
         <a class="boton linea" href="#un-dia"><svg class="ico"><use href="#i-cerrar"/></svg>Ver un día</a>
       </div>
     </div>
@@ -1021,10 +1025,9 @@ a,button,summary,input{touch-action:manipulation;-webkit-tap-highlight-color:tra
       <h2>¿Querés verlo andando en tu negocio?</h2>
       <p class="sub">Contanos qué vendés y qué sistema usás hoy, y te mostramos cómo quedaría.</p>
       <div class="acciones" style="margin-top:28px">
-        <!-- PENDIENTE: el canal de contacto (WhatsApp, mail o formulario). No se
-             publica uno inventado. -->
-        <a class="boton" href="#contacto" data-pendiente="contacto" id="escribinos">Escribinos <svg class="ico"><use href="#i-flecha"/></svg></a>
+        <a class="boton" href="https://wa.me/5493492665908?text=Hola%2C%20quiero%20ver%20Vueltito%20andando%20en%20mi%20negocio." target="_blank" rel="noopener" id="escribinos"><svg class="ico"><use href="#i-whatsapp"/></svg>Escribinos por WhatsApp</a>
       </div>
+      <p class="numero">o al <a href="https://wa.me/5493492665908?text=Hola%2C%20quiero%20ver%20Vueltito%20andando%20en%20mi%20negocio." target="_blank" rel="noopener">+54 9 3492 66-5908</a></p>
       <ol class="pasos" aria-label="Cómo empezamos">
         <li><span><b>Miramos cómo trabajan</b>Cómo cobran, qué códigos usan y qué sistema tienen.</span></li>
         <li><span><b>Lo instalamos al lado del viejo</b>Con tus productos, y los dos andan a la vez hasta que estén cómodos.</span></li>

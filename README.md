@@ -8,7 +8,7 @@ python3 -m http.server 8765   # http://localhost:8765
 ```
 
 Lo que dice la página sale de lo que el sistema hace hoy (los README de la base y de cada comercio). No se nombra a
-ningún cliente ni se publica un canal de contacto que no exista: lo pendiente está marcado con `data-pendiente`.
+ningún cliente. Todos los botones de contacto abren WhatsApp con un mensaje ya escrito.
 
 ## Dominio
 
